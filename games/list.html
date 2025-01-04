@@ -1,6 +1,9 @@
 <h1>If you see this, patching the APK worked!</h1>
 <button onClick="WAAPP()">Work At A Pizza Place</button>
+<p>Debug:</p>
+<code id="location"></code>
 <script>
+  document.getElementById("location").innerText = location.href
   function WAAPP() {
     location.replace("/14blox/games/123456789.rbxl");
     location.replace("roblox://123456789");
