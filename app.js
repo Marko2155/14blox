@@ -9,13 +9,36 @@ function SendFile(res, file) {
     res.write(filetext)
 }
 
+function WriteNewline(res, text) {
+    res.write(text + "\n")
+}
+
 http.createServer(function(req, res) {
     const urlpath = url.parse(req.url, true)
     const path = urlpath.path
-    if (req.method == "GET" && path == "/") {
-        console.log("GET /")
-        res.writeHead(200);
-        SendFile(res, "index.html")
+    if (req.method == "GET") {
+        if (path == "/") {
+            console.log("GET " + path)
+            res.writeHead(200);
+            SendFile(res, "index.html")
+            res.end();
+        } else if (path == "/games/list") {
+            console.log("GET " + path)
+            res.writeHead(200);
+            SendFile(res, "/games/list.html")
+            res.end();
+        } else if (path == "/games/123456789") {
+            console.log("GET " + path)
+            res.writeHead(200);
+            SendFile(res, "/games/123456789.rbxl")
+            res.end();
+        } else{
+            res.writeHead(404);
+            WriteNewline("what are you doing here, this page doesn't exist.")
+            res.end();
+        }
+    } else if (req.method == "POST") {
+
     }
 }).listen(80, function() {
     console.log(`Listening at port 80`)
