@@ -2,7 +2,7 @@ const http = require("http")
 const url = require("url")
 const fs = require("fs")
 const host = "localhost"
-const port = 80
+const port = 3000
 
 function SendFile(res, file) {
     let filetext = fs.readFileSync(file);
@@ -41,5 +41,5 @@ http.createServer(function(req, res) {
 
     }
 }).listen(80, function() {
-    console.log(`Listening at port 80`)
+    console.log(`Listening at port ${port}`)
 })
