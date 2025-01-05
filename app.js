@@ -13,7 +13,10 @@ http.createServer(function(req, res) {
     const urlpath = url.parse(req.url, true)
     const path = urlpath.path
     if (req.method == "GET" && path == "/") {
+        console.log("GET /")
         res.writeHead(200);
         SendFile(res, "index.html")
     }
+}).listen(80, function() {
+    console.log(`Listening at port 80`)
 })
