@@ -32,9 +32,9 @@ http.createServer(function(req, res) {
             res.writeHead(200);
             SendFile(res, "/games/123456789.rbxl")
             res.end();
-        } else{
+        } else {
             res.writeHead(404);
-            WriteNewline("what are you doing here, this page doesn't exist.")
+            WriteNewline(res, "what are you doing here, this page doesn't exist.")
             res.end();
         }
     } else if (req.method == "POST") {
