@@ -40,6 +40,6 @@ http.createServer(function(req, res) {
     } else if (req.method == "POST") {
 
     }
-}).listen(80, function() {
+}).listen(port, host, function() {
     console.log(`Listening at port ${port}`)
 })
