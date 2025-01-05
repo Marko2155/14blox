@@ -25,12 +25,12 @@ http.createServer(function(req, res) {
         } else if (path == "/games/list") {
             console.log("GET " + path)
             res.writeHead(200);
-            SendFile(res, "/games/list.html")
+            SendFile(res, "games/list.html")
             res.end();
         } else if (path == "/games/123456789") {
             console.log("GET " + path)
             res.writeHead(200);
-            SendFile(res, "/games/123456789.rbxl")
+            SendFile(res, "games/123456789.rbxl")
             res.end();
         } else {
             res.writeHead(404);
