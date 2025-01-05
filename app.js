@@ -2,7 +2,7 @@ const http = require("http")
 const url = require("url")
 const fs = require("fs")
 const host = "0.0.0.0"
-const port = 1000
+const port = 8080
 
 function SendFile(res, file) {
     let filetext = fs.readFileSync(file);
