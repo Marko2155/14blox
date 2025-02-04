@@ -76,12 +76,12 @@ http.createServer(function(req, res) {
                 if (userData != null && userData.UserPassword != null && userData.UserPassword == password) {
                     finishedData.Status = "OK"
                     finishedData.UserInfo = userData;
-                    res.write(JSON.stringify(finishedData))
+                    res.write(finishedData)
                     res.end();
                 } else {
                     finishedData.Status = "InvalidPassword"
                     finishedData.UserInfo = "";
-                    res.write(JSON.stringify(finishedData));
+                    res.write(finishedData);
                     res.end();
                 }
             } else {
