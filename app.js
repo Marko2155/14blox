@@ -46,7 +46,7 @@ http.createServer(function(req, res) {
             res.end();
         } else if (path == "/status") {
             res.writeHead(200);
-            res.send("perfectly healthy :D");
+            res.write("perfectly healthy :D");
             res.end();
         } else {
             res.writeHead(404);
