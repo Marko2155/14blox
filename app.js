@@ -92,7 +92,7 @@ http.createServer(function(req, res) {
 		res.write("{'Status': 'OK'}");
 		res.end();
 	    } else {
-g                res.write("what are you doing here, this API call doesn't exist.")
+                res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
             }
         })
