@@ -50,7 +50,11 @@ http.createServer(function(req, res) {
 	    res.writeHead(200);
 	    res.write("Game should be starting!")
 	    res.end();
-	} else {
+	} else if (path == "/status") {
+        res.writeHead(200);
+        res.write("perfectly healthy :D");
+        res.end();
+    } else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
             res.end();
