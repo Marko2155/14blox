@@ -3,7 +3,7 @@ const url = require("url")
 const fs = require("fs")
 const { wrap } = require("module")
 const host = "0.0.0.0"
-const port = 10000
+const port = 2014
 
 function SendFile(res, file) {
     let filetext = fs.readFileSync(file);
@@ -40,15 +40,17 @@ http.createServer(function(req, res) {
             res.writeHead(200);
             SendFile(res, "games/list.html")
             res.end();
-        } else if (path == "/games/123456789") {
+        } else if (path == "/games/id/1") {
             res.writeHead(200);
             SendFile(res, "games/123456789.rbxl")
             res.end();
-        } else if (path == "/status") {
-            res.writeHead(200);
-            res.write("perfectly healthy :D");
-            res.end();
-        } else {
+        } else if (path == "/userlogo") {
+	    res.write(fs.readFileSync("img/userlogo.png"));
+	} else if (path == "/games/start") {
+	    res.writeHead(200);
+	    res.write("Game should be starting!")
+	    res.end();
+	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
             res.end();
@@ -76,16 +78,21 @@ http.createServer(function(req, res) {
                 if (userData != null && userData.UserPassword != null && userData.UserPassword == password) {
                     finishedData.Status = "OK"
                     finishedData.UserInfo = userData;
-                    res.write(finishedData)
+                    console.log(JSON.stringify(finishedData))
+                    res.write(JSON.stringify(finishedData))
                     res.end();
                 } else {
                     finishedData.Status = "InvalidPassword"
                     finishedData.UserInfo = "";
-                    res.write(finishedData);
+                    res.write(JSON.stringify(finishedData));
                     res.end();
                 }
-            } else {
-                res.write("what are you doing here, this API call doesn't exist.")
+            } else if (path == "/mobileapi/logout") {
+		res.writeHead(200);
+		res.write("{'Status': 'OK'}");
+		res.end();
+	    } else {
+g                res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
             }
         })
