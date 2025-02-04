@@ -44,6 +44,10 @@ http.createServer(function(req, res) {
             res.writeHead(200);
             SendFile(res, "games/123456789.rbxl")
             res.end();
+        } else if (path == "/status") {
+            res.writeHead(200);
+            res.send("perfectly healthy :D");
+            res.end();
         } else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
