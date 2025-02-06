@@ -62,8 +62,13 @@ http.createServer(function(req, res) {
             res.end();
         } else if (path == "/games/query" && query != {}) {
             res.writeHead(200);
-            res.write("<h1>Games with name " + query.gameName + ":");
-            res.end()
+            if (query.gameName == undefined) {
+                res.write("<h1>Nothing searched.</h1>")
+                res.end()
+            } else {
+                res.write("<h1>Games named or close to '" + query.gameName + "':");
+                res.end()
+            }
         } else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
