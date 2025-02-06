@@ -60,6 +60,10 @@ http.createServer(function(req, res) {
             res.writeHead(200);
             res.write("perfectly healthy :D");
             res.end();
+        } else if (path == "/games/query" && query != {}) {
+            res.writeHead(200);
+            res.write("<h1>Games with name " + query.gameName + ":");
+            res.end()
         } else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
