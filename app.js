@@ -29,7 +29,8 @@ function GetUserData(username, db) {
 }
 http.createServer(function(req, res) {
     const urlpath = url.parse(req.url, true)
-    const path = urlpath.path
+    const parsedpath = urlpath.path
+    const path = parsedpath.split("?")[0]
     if (req.method == "GET") {
         console.log("GET " + path)
         if (path == "/") {
@@ -54,6 +55,7 @@ http.createServer(function(req, res) {
         res.writeHead(200);
         res.write("perfectly healthy :D");
         res.end();
+            
     } else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
