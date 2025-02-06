@@ -34,6 +34,7 @@ http.createServer(function(req, res) {
     const query = parsedpath.split("?")[1].replace("?", "")
     if (req.method == "GET") {
         console.log("GET " + path)
+        console.log(query)
         if (path == "/") {
             res.writeHead(200);
             SendFile(res, "index.html")
