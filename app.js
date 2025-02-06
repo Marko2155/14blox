@@ -31,7 +31,9 @@ http.createServer(function(req, res) {
     const urlpath = url.parse(req.url, true)
     const parsedpath = urlpath.path
     const path = parsedpath.split("?")[0]
-    const query = parsedpath.split("?")[1].replace("?", "")
+    if (path.charAt(path.length - 1) == "?") {
+        const query = parsedpath.split("?")[1].replace("?", "")
+    }
     if (req.method == "GET") {
         console.log("GET " + path)
         console.log(query)
