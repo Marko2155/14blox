@@ -30,9 +30,10 @@ function GetUserData(username, db) {
 http.createServer(function(req, res) {
     const urlpath = url.parse(req.url, true)
     const parsedpath = urlpath.path
+    const query = urlpath.query
     const path = parsedpath.split("?")[0]
     if (path.charAt(path.length - 1) == "?") {
-        const query = parsedpath.split("?")[1].replace("?", "")
+        query = parsedpath.split("?")[1].replace("?", "")
     }
     if (req.method == "GET") {
         console.log("GET " + path)
@@ -50,16 +51,16 @@ http.createServer(function(req, res) {
             SendFile(res, "games/123456789.rbxl")
             res.end();
         } else if (path == "/userlogo") {
-	    res.write(fs.readFileSync("img/userlogo.png"));
-	} else if (path == "/games/start") {
-	    res.writeHead(200);
-	    res.write("Game should be starting!")
-	    res.end();
-	} else if (path == "/status") {
-        res.writeHead(200);
-        res.write("perfectly healthy :D");
-        res.end();
-    } else {
+	        res.write(fs.readFileSync("img/userlogo.png"));
+        } else if (path == "/games/start") {
+            res.writeHead(200);
+            res.write("Game should be starting!")
+            res.end();
+        } else if (path == "/status") {
+            res.writeHead(200);
+            res.write("perfectly healthy :D");
+            res.end();
+        } else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
             res.end();
@@ -97,10 +98,10 @@ http.createServer(function(req, res) {
                     res.end();
                 }
             } else if (path == "/mobileapi/logout") {
-		res.writeHead(200);
-		res.write("{'Status': 'OK'}");
-		res.end();
-	    } else {
+		        res.writeHead(200);
+		        res.write("{'Status': 'OK'}");
+		        res.end();
+	        } else {
                 res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
             }
