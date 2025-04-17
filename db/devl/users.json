@@ -6,6 +6,7 @@
             "RobuxBalance": 999,
             "TicketsBalance": 999,
             "IsAnyBuildersClubMember": true,
-            "ThumbnailUrl": "http://147.185.221.25:53180/userlogo"
+            "ThumbnailUrl": "https://14blox.strangled.net/userlogo",
+	    "IPAddress": ""
         }
 ]
