@@ -3,7 +3,7 @@ const url = require("url")
 const fs = require("fs")
 const { wrap } = require("module")
 const host = "0.0.0.0"
-const port = 10000
+const port = 80
 
 function SendFile(res, file) {
     let filetext = fs.readFileSync(file);
