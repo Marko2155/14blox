@@ -46,7 +46,7 @@ process.on("SIGINT", async function() {
 
 
 function GetUserData(username) {
-    let userdb = client.db("14bloxDB").collection("users").find({UserName: Buffer.from(username).to('base64')})
+    let userdb = client.db("14bloxDB").collection("users").find({UserName: Buffer.from(username).toString('base64')})
     return userdb
 }
 
@@ -118,7 +118,7 @@ http.createServer(function(req, res) {
                     UserInfo: ""
                 }
                 console.log(userData);
-                if (userData != null && userData.UserPassword != null && userData.UserPassword == Buffer.from(password).to('base64')) {
+                if (userData != null && userData.UserPassword != null && userData.UserPassword == Buffer.from(password).toString('base64')) {
                     finishedData.Status = "OK"
                     finishedData.UserInfo = userData;
                     console.log(JSON.stringify(finishedData))
