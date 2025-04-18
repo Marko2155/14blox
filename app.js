@@ -46,7 +46,7 @@ process.on("SIGINT", async function() {
 
 
 function GetUserData(username, db) {
-    let userdb = JSON.parse(client.db("14bloxDB").collection("users").find())
+    let userdb = client.db("14bloxDB").collection("users").find()
     return userdb.find(user => user.UserName == Buffer.from(username).to(base64))
 }
 
