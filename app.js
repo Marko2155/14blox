@@ -71,6 +71,7 @@ http.createServer(function(req, res) {
     if (req.method == "GET") {
         console.log("GET " + path)
         console.log(query)
+	console.log("Headers: " + req.headers)
         if (path == "/") {
             res.writeHead(200);
             SendFile(res, "index.html")
@@ -109,6 +110,7 @@ http.createServer(function(req, res) {
         }
     } else if (req.method == "POST") {
         console.log("POST " + path)
+        console.log("Headers: " + req.headers)
         var body = "";
         req.on("data", function(chunk) {
             body += chunk;
