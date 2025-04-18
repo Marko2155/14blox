@@ -11,8 +11,8 @@ const port = 10000
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
+    strict: false,
+    deprecationErrors: false,
   }
 });
 
@@ -46,7 +46,7 @@ process.on("SIGINT", async function() {
 
 
 function GetUserData(username) {
-    let userdb = client.db("14bloxDB").collection("users").find({UserName: Buffer.from(username).toString('base64')})
+    let userdb = client.db("14bloxDB").collection("users").find({UserName: username})
     return userdb
 }
 
