@@ -7,6 +7,7 @@ const {MongoClient, ServerApiVersion} = require("mongodb")
 const uri = "mongodb+srv://14bloxJS:TLxUFjSLJXd1ebIo@14bloxdb.4yuwdsg.mongodb.net/?retryWrites=true&w=majority&appName=14bloxDB"
 const host = "0.0.0.0"
 const port = 10000
+let sessions = []
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -60,7 +61,7 @@ async function GetUserData(username) {
     return user
 }
 
-http.createServer(function(req, res) {
+http.createServer(async function(req, res) {
     const urlpath = url.parse(req.url, true)
     const parsedpath = urlpath.path
     const query = urlpath.query
@@ -103,7 +104,14 @@ http.createServer(function(req, res) {
                 res.write("<h1>Games named or close to '" + query.gameName + "':");
                 res.end()
             }
-        } else {
+        } else if (path == "/mobileapi/userinfo") {
+	    res.writeHead(200);
+	    if (sessions[req.ip.replaceAll(".", "")] == undefined || sessions[req.ip.replaceAll(".", "")] == null) {
+	        let userData = await GetUserData(sessions[req.ip.replaceAll(".", "")].UserName)
+		res.write(JSON.stringify(userData));
+	    }
+	    res.end();
+	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
             res.end();
@@ -134,6 +142,7 @@ http.createServer(function(req, res) {
                     finishedData.UserInfo = userData;
                     console.log(JSON.stringify(finishedData))
                     res.write(JSON.stringify(finishedData))
+		    sessions[req.ip.replaceAll(".", "")] = { UserName: userData.UserName, UserID: userData.UserID };
                     res.end();
                 } else {
                     finishedData.Status = "InvalidPassword"
