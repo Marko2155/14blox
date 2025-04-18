@@ -127,7 +127,7 @@ http.createServer(function(req, res) {
                     UserInfo: ""
                 }
                 console.log(userData);
-                if (userData != null && userData.UserPassword != null && userData.UserPassword == Buffer.from(password).toString('base64')) {
+                if (userData != null && userData.UserPassword != null && userData.UserPassword == password) {
                     finishedData.Status = "OK"
                     finishedData.UserInfo = userData;
                     console.log(JSON.stringify(finishedData))
