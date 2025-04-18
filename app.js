@@ -55,7 +55,7 @@ process.on("SIGINT", async function() {
 
 
 
-async function GetUserData(username) {
+function GetUserData(username) {
     let userdb = client.db("14bloxDB").collection("users").findOne({UserName: username})
     return userdb
 }
@@ -114,14 +114,14 @@ http.createServer(function(req, res) {
             body += chunk;
         })
 
-        req.on("end", async function() {
+        req.on("end", function() {
             if (path == "/mobileapi/login") {
                 console.log(body);
                 res.writeHead(200);
                 const userdata = body.split("&");
                 const password = userdata[1].split("=")[1];
                 const username = userdata[0].split("=")[1];
-                const userData = await GetUserData(username)
+                const userData = GetUserData(username)
                 let finishedData = {
                     Status: "",
                     UserInfo: ""
