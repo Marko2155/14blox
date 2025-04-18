@@ -109,6 +109,7 @@ http.createServer(async function(req, res) {
 	    if (sessions[req.ip.replaceAll(".", "")] == undefined || sessions[req.ip.replaceAll(".", "")] == null) {
 	        let userData = await GetUserData(sessions[req.ip.replaceAll(".", "")].UserName)
 		res.write(JSON.stringify(userData));
+		console.log(userData)
 	    }
 	    res.end();
 	} else {
