@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Marko2155/14blox#readme",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "mongodb": "^6.15.0",
     "path": "^0.12.7"
   }
 }

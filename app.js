@@ -1,9 +1,32 @@
 const http = require("http")
 const url = require("url")
 const fs = require("fs")
+const process = require("process")
 const { wrap } = require("module")
+const {MongoClient, ServerApiVersion} = require("mongodb")
+const uri = "mongodb+srv://14bloxJS:TLxUFjSLJXd1ebIo@14bloxdb.4yuwdsg.mongodb.net/?retryWrites=true&w=majority&appName=14bloxDB"
 const host = "0.0.0.0"
 const port = 10000
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+if (process.platform === "win32") {
+  var rl = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.on("SIGINT", function () {
+    process.emit("SIGINT");
+  });
+}
+
 
 function SendFile(res, file) {
     let filetext = fs.readFileSync(file);
@@ -14,20 +37,21 @@ function WriteNewline(res, text) {
     res.write(text + "\n")
 }
 
-function JSONToArray(json){
-    var result = [];
-    var keys = Object.keys(json);
-    keys.forEach(function(key){
-        result.push(json[key]);
-    });
-    return result;
-}
+process.on("SIGINT", async function() {
+	await client.close()
+	console.log("\nClosing MongoDB connection!")
+	process.exit();
+})
+
+
 
 function GetUserData(username, db) {
-    let userdb = JSON.parse(fs.readFileSync("db/" + db + "/users.json"))
-    return userdb.find(user => user.UserName == username)
+    let userdb = JSON.parse(client.db("14bloxDB").collection("users").find())
+    return userdb.find(user => user.UserName == Buffer.from(username).to(base64))
 }
+
 http.createServer(function(req, res) {
+    client.connect()
     const urlpath = url.parse(req.url, true)
     const parsedpath = urlpath.path
     const query = urlpath.query
@@ -88,13 +112,13 @@ http.createServer(function(req, res) {
                 const userdata = body.split("&");
                 const password = userdata[1].split("=")[1];
                 const username = userdata[0].split("=")[1];
-                const userData = GetUserData(username, "devl")
+                const userData = GetUserData(username)
                 let finishedData = {
                     Status: "",
                     UserInfo: ""
                 }
                 console.log(userData);
-                if (userData != null && userData.UserPassword != null && userData.UserPassword == password) {
+                if (userData != null && userData.UserPassword != null && userData.UserPassword == Buffer.from(password).to(base64)) {
                     finishedData.Status = "OK"
                     finishedData.UserInfo = userData;
                     console.log(JSON.stringify(finishedData))
