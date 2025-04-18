@@ -56,7 +56,7 @@ process.on("SIGINT", async function() {
 
 
 async function GetUserData(username) {
-    let user = await client.db("14bloxDB").collection("users").findOne({UserName: username})
+    let user = await client.db("14blox").collection("users").findOne({UserName: username})
     return user
 }
 
