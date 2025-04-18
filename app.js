@@ -33,6 +33,16 @@ function SendFile(res, file) {
     res.write(filetext)
 }
 
+(async () => {
+  try {
+    await client.connect();
+    console.log("Connected to MongoDB!");
+  } catch (err) {
+    console.error("Failed to connect to MongoDB", err);
+  }
+})();
+
+
 function WriteNewline(res, text) {
     res.write(text + "\n")
 }
@@ -45,13 +55,12 @@ process.on("SIGINT", async function() {
 
 
 
-function GetUserData(username) {
-    let userdb = client.db("14bloxDB").collection("users").find({UserName: username})
+async function GetUserData(username) {
+    let userdb = client.db("14bloxDB").collection("users").findOne({UserName: username})
     return userdb
 }
 
 http.createServer(function(req, res) {
-    client.connect()
     const urlpath = url.parse(req.url, true)
     const parsedpath = urlpath.path
     const query = urlpath.query
@@ -105,14 +114,14 @@ http.createServer(function(req, res) {
             body += chunk;
         })
 
-        req.on("end", function() {
+        req.on("end", async function() {
             if (path == "/mobileapi/login") {
                 console.log(body);
                 res.writeHead(200);
                 const userdata = body.split("&");
                 const password = userdata[1].split("=")[1];
                 const username = userdata[0].split("=")[1];
-                const userData = GetUserData(username)
+                const userData = await GetUserData(username)
                 let finishedData = {
                     Status: "",
                     UserInfo: ""
