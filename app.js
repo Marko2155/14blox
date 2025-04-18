@@ -106,8 +106,9 @@ http.createServer(async function(req, res) {
             }
         } else if (path == "/mobileapi/userinfo") {
 	    res.writeHead(200);
-	    if (sessions[req.ip.replaceAll(".", "")] == undefined || sessions[req.ip.replaceAll(".", "")] == null) {
-	        let userData = await GetUserData(sessions[req.ip.replaceAll(".", "")].UserName)
+	    if (sessions[req.connection.remoteAddress.replaceAll(".", "")] == undefined || sessions[req.connection.remoteAddress.replaceAll(".", "")] == null) {
+		    console.log(req.connection.remoteAddress)
+	        let userData = await GetUserData(sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName)
 		res.write(JSON.stringify(userData));
 		console.log(userData)
 	    }
@@ -143,7 +144,7 @@ http.createServer(async function(req, res) {
                     finishedData.UserInfo = userData;
                     console.log(JSON.stringify(finishedData))
                     res.write(JSON.stringify(finishedData))
-		    sessions[req.ip.replaceAll(".", "")] = { UserName: userData.UserName, UserID: userData.UserID };
+		    sessions[req.connection.remoteAddress.replaceAll(".", "")] = { UserName: userData.UserName, UserID: userData.UserID };
                     res.end();
                 } else {
                     finishedData.Status = "InvalidPassword"
