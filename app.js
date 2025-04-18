@@ -156,6 +156,7 @@ http.createServer(async function(req, res) {
 		        res.writeHead(200);
 		        res.write("{'Status': 'OK'}");
 		        res.end();
+		    sessions[req.connection.remoteAddress.replaceAll(".", "")] = undefined;
 	        } else {
                 res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
