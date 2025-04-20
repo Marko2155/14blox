@@ -113,6 +113,16 @@ http.createServer(async function(req, res) {
 		console.log(userData)
 	    }
 	    res.end();
+	} else if (path == "/Game/PlaceLauncher.ashx") {
+		res.writeHead(200);
+		res.write("{ 'jobId': 'somerandomid', 'status': 2, 'joinScriptUrl': 'https://14blox.strangled.net/loader/Join.ashx', 'authenticationUrl': 'https://14blox.strangled.net/loader/Negotiate.ashx', 'authenticationTicket': '" + Math.floor(Math.random * 9999) + "', 'message': 'why is this here' }");
+		res.end()
+	} else if (path == "/loader/Join.ashx") {
+		res.writeHead(200);
+		res.write(fs.readFileSync("loader/join.ashx"));
+		res.end()
+	} else if (path == "/loader/Negotiate.ashx") {
+
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
