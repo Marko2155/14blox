@@ -61,6 +61,11 @@ async function GetUserData(username) {
     return user
 }
 
+async function GetGame(placeId) {
+	let place = await client.db("14blox").collection("games").findOne({ gameId: placeId })
+	return place
+}
+
 http.createServer(async function(req, res) {
     const urlpath = url.parse(req.url, true)
     const parsedpath = urlpath.path
@@ -114,15 +119,24 @@ http.createServer(async function(req, res) {
 	    }
 	    res.end();
 	} else if (path == "/Game/PlaceLauncher.ashx") {
-		res.writeHead(200);
-		res.write("{ 'jobId': 'somerandomid', 'status': 2, 'joinScriptUrl': 'https://14blox.strangled.net/loader/Join.ashx', 'authenticationUrl': 'https://14blox.strangled.net/loader/Negotiate.ashx', 'authenticationTicket': '" + Math.floor(Math.random * 9999) + "', 'message': 'why is this here' }");
+		const placeId = query.placeId
+		const place = GetGame(placeId)
+		let placeRequest = {
+			jobId: 12,
+			status: place.gameStatus,
+			joinScriptUrl: "https://14blox.strangled.net/Game/Join.ashx",
+			authenticationUrl: "https://14blox.strangled.net/Game/Negotiate.ashx",
+			authenticationTicket: placeId + Math.random() * 500
+		}
+		res.json(placeRequest)
 		res.end()
-	} else if (path == "/loader/Join.ashx") {
+	} else if (path == "/Game/Join.ashx") {
 		res.writeHead(200);
 		res.write(fs.readFileSync("loader/join.ashx"));
 		res.end()
 	} else if (path == "/loader/Negotiate.ashx") {
-
+		res.writeHead(200);
+		
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
