@@ -128,11 +128,11 @@ http.createServer(async function(req, res) {
 			authenticationUrl: "https://14blox.strangled.net/Game/Negotiate.ashx",
 			authenticationTicket: placeId + Math.random() * 500
 		}
+		res.writeHead(200);
 		res.json(placeRequest)
 		res.end()
 	} else if (path == "/Game/Join.ashx") {
-		res.writeHead(200);
-		res.write(fs.readFileSync("loader/join.ashx"));
+
 		res.end()
 	} else if (path == "/loader/Negotiate.ashx") {
 		res.writeHead(200);
@@ -184,7 +184,9 @@ http.createServer(async function(req, res) {
 	        } else {
                 res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
-            }
+            } else if (path == "/Error/DMP.ashx") {
+		res.end()
+	    }
         })
     }
 }).listen(port, host, function() {
