@@ -186,8 +186,8 @@ http.createServer(async function(req, res) {
             } else if (path == "/mobileapi/logout") {
 		res.writeHead(200);
 		res.write("{'Status': 'OK'}");
-		res.end();
 		sessions[req.connection.remoteAddress.replaceAll(".", "")] = undefined;
+		res.end();	
             } else if (path == "/Error/DMP.ashx") {
 		DMPerror = body;
 		console.log("GOT DMP ERROR, LOOK AT /Error");
