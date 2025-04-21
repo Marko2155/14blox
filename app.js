@@ -181,12 +181,12 @@ http.createServer(async function(req, res) {
 		        res.write("{'Status': 'OK'}");
 		        res.end();
 		    sessions[req.connection.remoteAddress.replaceAll(".", "")] = undefined;
-	        } else {
+	        } else if (path == "/Error/DMP.ashx") {
+                res.end()
+            } else {
                 res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
-            } else if (path == "/Error/DMP.ashx") {
-		res.end()
-	    }
+            }
         })
     }
 }).listen(port, host, function() {
