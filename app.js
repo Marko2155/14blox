@@ -188,7 +188,7 @@ http.createServer(async function(req, res) {
 		res.write("{'Status': 'OK'}");
 		sessions[req.connection.remoteAddress.replaceAll(".", "")] = undefined;
 		res.end();	
-            } else if (path == "/Error/DMP.ashx") {
+            } else if (path == "/error/Dmp.ashx") {
 		DMPerror = body;
 		console.log("GOT DMP ERROR, LOOK AT /Error");
 		if (!res.headersSent) {
