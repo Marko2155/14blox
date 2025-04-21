@@ -132,7 +132,7 @@ http.createServer(async function(req, res) {
 			authenticationTicket: placeId + Math.random() * 500
 		}
 		res.writeHead(200);
-		res.json(placeRequest)
+		res.write(JSON.stringify(placeRequest))
 		res.end()
 	} else if (path == "/Game/Join.ashx") {
 
