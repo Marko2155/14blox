@@ -111,7 +111,6 @@ http.createServer(async function(req, res) {
                 res.end()
             }
         } else if (path == "/mobileapi/userinfo") {
-	    res.writeHead(200);
 	    if (sessions[req.connection.remoteAddress.replaceAll(".", "")] != undefined || sessions[req.connection.remoteAddress.replaceAll(".", "")] != null) {
 		    console.log(req.connection.remoteAddress)
 	        let userData = await GetUserData(sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName)
