@@ -189,9 +189,11 @@ http.createServer(async function(req, res) {
 		res.end();
 		sessions[req.connection.remoteAddress.replaceAll(".", "")] = undefined;
             } else if (path == "/Error/DMP.ashx") {
-		res.writeHead(200);
-		DMPerror = req.body;
+		DMPerror = body;
 		console.log("GOT DMP ERROR, LOOK AT /Error");
+		if (!res.headersSent) {
+			res.writeHead(200);
+		}
 		res.end()
 	    } else {
                 res.write("what are you doing here, this API call doesn't exist.")
