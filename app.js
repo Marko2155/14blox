@@ -7,6 +7,7 @@ const {MongoClient, ServerApiVersion} = require("mongodb")
 const uri = "mongodb+srv://14bloxJS:TLxUFjSLJXd1ebIo@14bloxdb.4yuwdsg.mongodb.net/?retryWrites=true&w=majority&appName=14bloxDB"
 const host = "0.0.0.0"
 const port = 10000
+let DMPerror = "";
 let sessions = []
 
 const client = new MongoClient(uri, {
@@ -140,6 +141,10 @@ http.createServer(async function(req, res) {
 	} else if (path == "/loader/Negotiate.ashx") {
 		res.writeHead(200);
 		
+	} else if (path == "/Error") {
+		res.writeHead(200);
+		res.write(DMPerror);
+		res.end()
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
@@ -186,7 +191,12 @@ http.createServer(async function(req, res) {
 		    sessions[req.connection.remoteAddress.replaceAll(".", "")] = undefined;
 	        } else if (path == "/Error/DMP.ashx") {
                 res.end()
-            } else {
+            } else if (path == "/Error/DMP.ashx") {
+		res.writeHead(200);
+		DMPerror = req.body;
+		console.log("GOT DMP ERROR, LOOK AT /Error");
+		res.end()
+	    } else {
                 res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
             }
