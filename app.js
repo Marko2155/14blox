@@ -10,7 +10,6 @@ const host = "0.0.0.0"
 const port = 10000
 let key = "1122334455667788998877665544332211"
 let DMPerror = "";
-let joinScript = fs.readFileSync("joinscript.lua")
 
 const client = new MongoClient(uri, {
   serverApi: {
