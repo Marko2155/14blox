@@ -1,14 +1,16 @@
 const http = require("http")
 const url = require("url")
 const fs = require("fs")
+const crypto = require("crypto")
 const process = require("process")
 const { wrap } = require("module")
 const {MongoClient, ServerApiVersion} = require("mongodb")
 const uri = "mongodb+srv://14bloxJS:TLxUFjSLJXd1ebIo@14bloxdb.4yuwdsg.mongodb.net/?retryWrites=true&w=majority&appName=14bloxDB"
 const host = "0.0.0.0"
 const port = 10000
+let key = "1122334455667788998877665544332211"
 let DMPerror = "";
-let sessions = []
+let joinScript = fs.readFileSync("joinscript.lua")
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -44,6 +46,13 @@ function SendFile(res, file) {
   }
 })();
 
+function xor(str, key) {     
+        str = String(str).split('').map(letter => letter.charCodeAt());
+        let res = "";
+        for (let i = 0; i < str.length; i++) res += String.fromCodePoint(str[i] ^ key);
+	return res; 
+}
+
 
 function WriteNewline(res, text) {
     res.write(text + "\n")
@@ -65,6 +74,14 @@ async function GetUserData(username) {
 async function GetGame(placeId) {
 	let place = await client.db("14blox").collection("games").findOne({ gameId: placeId })
 	return place
+}
+
+function confirmSessionExists(ip) {
+	if (sessions[ip.replaceAll(".", "")] == undefined || sessions[ip.replaceAll(".", "")] == null) {
+		return false
+	} else {
+		return true
+	}
 }
 
 http.createServer(async function(req, res) {
@@ -111,7 +128,8 @@ http.createServer(async function(req, res) {
                 res.end()
             }
         } else if (path == "/mobileapi/userinfo") {
-	    if (sessions[req.connection.remoteAddress.replaceAll(".", "")] != undefined || sessions[req.connection.remoteAddress.replaceAll(".", "")] != null) {
+	     let sessionExists = confirmSessionExists(req.connection.remoteAddress)
+		if (sessionExists) {
 		    console.log(req.connection.remoteAddress)
 	        let userData = await GetUserData(sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName)
 		res.write(JSON.stringify(userData));
@@ -133,16 +151,54 @@ http.createServer(async function(req, res) {
 		}
 		res.writeHead(200);
 		res.write(JSON.stringify(placeRequest))
+		console.log(placeRequest)
 		res.end()
 	} else if (path == "/Game/Join.ashx") {
-
-		res.end()
-	} else if (path == "/loader/Negotiate.ashx") {
 		res.writeHead(200);
-		
+		let adjustedUserName = "";
+		if (sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName == undefined || sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName == null) {
+			adjustedUserName = "Guest " + Math.random * 9999
+		} else {
+			adjustedUserName = sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName
+		}
+		res.write("showErrorWindow('this is a game test', 'Kick', 'Kick')")
+		res.end()
+	} else if (path == "/Game/Negotiate.ashx") {
+		let sessionExists = confirmSessionExists(req.connection.localAddress)
+		if (sessionExists) {
+		let userData = await GetUserData(userData.UserName)
+		if (!userData.IsBanned) {
+			const ROBLOSECURITY = xor("14BLOX-" + userData.UserName + String(userData.UserId))
+			res.writeHead(200)
+			res.write(ROBLOSECURITY)
+		} else {
+			res.writeHead(401)
+		}
+		} else {
+			res.writeHead(401)	
+		}
+		res.end()
 	} else if (path == "/Error") {
 		res.writeHead(200);
 		res.write(DMPerror);
+		res.end()
+	} else if (path == "/Game/Ping.ashx") {
+		res.writeHead(200);
+		res.write("Ping OK")
+		res.end()
+	} else if (path == "/Asset") {
+		if (query.id != undefined || query.id != null) {
+			if (fs.existsSync("asset/" + query.id + ".png") {
+				res.writeHead(200)
+				SendFile(res, "asset/" + query.id + ".png")
+			} else {
+				res.writeHead(404)
+				res.write("Asset doesn't exist!")
+			}
+		} else {
+			res.writeHead(401)
+			res.write("Provide an ID!")
+		}
 		res.end()
 	} else {
             res.writeHead(404);
