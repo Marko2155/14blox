@@ -188,7 +188,7 @@ http.createServer(async function(req, res) {
 		res.end()
 	} else if (path == "/Asset") {
 		if (query.id != undefined || query.id != null) {
-			if (fs.existsSync("asset/" + query.id + ".png") {
+			if (fs.existsSync("asset/" + query.id + ".png")) {
 				res.writeHead(200)
 				SendFile(res, "asset/" + query.id + ".png")
 			} else {
