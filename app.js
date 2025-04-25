@@ -241,7 +241,7 @@ http.createServer(async function(req, res) {
 			}
                 } else {
                     finishedData.Status = "InvalidPassword"
-                    finishedData.UserInfo = "";
+                    finishedData.UserInfo = userData;
                     res.write(JSON.stringify(finishedData));
                     res.end();
                 }
