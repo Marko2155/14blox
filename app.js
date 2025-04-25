@@ -11,7 +11,7 @@ const port = 10000
 let key = "1122334455667788998877665544332211"
 let DMPerror = "";
 let sessions = []
-let joinScriptFile = fs.readFileSync("joinscript.lua")
+let joinScriptFile = fs.readFileSync(__dirname + "/joinscript.lua")
 
 const client = new MongoClient(uri, {
   serverApi: {
