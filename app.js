@@ -11,6 +11,7 @@ const port = 10000
 let key = "1122334455667788998877665544332211"
 let DMPerror = "";
 let sessions = []
+let joinScriptFile = fs.readFileSync("joinscript.lua")
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -161,7 +162,7 @@ http.createServer(async function(req, res) {
 		} else {
 			adjustedUserName = sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName
 		}
-		res.write("showErrorWindow('this is a game test', 'Kick', 'Kick')")
+		res.write(joinScriptFile)
 		res.end()
 	} else if (path == "/Game/Negotiate.ashx") {
 		let sessionExists = confirmSessionExists(req.connection.localAddress)
