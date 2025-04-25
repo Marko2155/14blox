@@ -142,6 +142,7 @@ http.createServer(async function(req, res) {
 	} else if (path == "/Game/PlaceLauncher.ashx") {
 		const placeId = query.placeId
 		const place = GetGame(placeId)
+		console.log(place)
 		let placeRequest = {
 			jobId: 12,
 			status: place.gameStatus,
