@@ -161,7 +161,7 @@ http.createServer(async function(req, res) {
 		} else {
 			adjustedUserName = sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName
 		}
-		res.write("game:GetService("GuiService"):SendNotification("Badge Awarded!", message, "https://14blox.strangled.net/Asset?id=177200377", 5, noOptFunc)")
+		res.write("game:GetService('GuiService'):SendNotification('Badge Awarded!', message, 'https://14blox.strangled.net/Asset?id=177200377', 5, noOptFunc)")
 		res.end()
 	} else if (path == "/Game/Negotiate.ashx") {
 		let sessionExists = confirmSessionExists(req.connection.localAddress)
