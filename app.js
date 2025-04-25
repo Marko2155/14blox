@@ -11,7 +11,6 @@ const port = 10000
 let key = "1122334455667788998877665544332211"
 let DMPerror = "";
 let sessions = []
-let joinScriptFile = fs.readFileSync(__dirname + "/joinscript.lua")
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -162,7 +161,7 @@ http.createServer(async function(req, res) {
 		} else {
 			adjustedUserName = sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName
 		}
-		res.write(joinScriptFile)
+		res.write("game:GetService("GuiService"):SendNotification("Badge Awarded!", message, "https://14blox.strangled.net/Asset?id=177200377", 5, noOptFunc)")
 		res.end()
 	} else if (path == "/Game/Negotiate.ashx") {
 		let sessionExists = confirmSessionExists(req.connection.localAddress)
