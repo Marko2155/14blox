@@ -145,7 +145,7 @@ http.createServer(async function(req, res) {
 		console.log(place)
 		let placeRequest = {
 			jobId: 12,
-			status: place.gameStatus,
+			status: 2,
 			joinScriptUrl: "https://14blox.strangled.net/Game/Join.ashx",
 			authenticationUrl: "https://14blox.strangled.net/Game/Negotiate.ashx",
 			authenticationTicket: placeId + Math.random() * 500
