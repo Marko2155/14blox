@@ -227,12 +227,18 @@ http.createServer(async function(req, res) {
                 }
                 console.log(userData);
                 if (userData != null && userData.UserPassword != null && userData.UserPassword == password) {
+			if (userData.IsBanned == false) {
                     finishedData.Status = "OK"
                     finishedData.UserInfo = userData;
                     console.log(JSON.stringify(finishedData))
                     res.write(JSON.stringify(finishedData))
 		    sessions[req.connection.remoteAddress.replaceAll(".", "")] = { UserName: userData.UserName, UserID: userData.UserID };
                     res.end();
+			} else {
+				finishedData.Status = "Your 14blox account is banned. Please contact marko2155 on Discord to appeal your ban."
+				finishedData.UserInfo = null;
+			res.end()
+			}
                 } else {
                     finishedData.Status = "InvalidPassword"
                     finishedData.UserInfo = "";
