@@ -201,6 +201,12 @@ http.createServer(async function(req, res) {
 			res.write("Provide an ID!")
 		}
 		res.end()
+	} else if (path == "/UserCheck/checkifinvalidusernameforsignup") {
+		if (query.username != undefined || query.username != null || query.username != "") {
+			res.writeHead(200)
+			res.write("{'data': 0}")
+			res.end()
+		}
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
@@ -275,6 +281,10 @@ http.createServer(async function(req, res) {
 		})
 		res.writeHead(200);
 		res.write("{'Status': 'OK'}");
+		res.end()
+	    } else if (path == "/UserCheck/validatepasswordforsignup") {
+		res.writeHead(200);
+		res.write("{'success': true}")
 		res.end()
 	    } else {
                 res.write("what are you doing here, this API call doesn't exist.")
