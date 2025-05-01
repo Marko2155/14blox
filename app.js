@@ -270,20 +270,19 @@ http.createServer(async function(req, res) {
 		const uname = udata[0].split("=")[1]
 		const upass = udata[1].split("=")[1]
 		let userList = await client.db("14blox").collection("users").find({}).toArray()
-		console.log(CircularJSON.stringify(userList))
-		console.log(userList[userList.length - 1].UserID)
-		client.db("14blox").collection("users").insertOne({
+		let userData = {
 			UserName: uname,
 			UserPassword: upass,
-			UserID: 2000,
+			UserID: userList[userList.length - 1].UserID,
 			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			IsAnyBuildersClubMember: true,
-		    	ThumbnailUrl: "https://14blox.strangled.net/userlogo",
-		    	IsBanned: false
-		})
+			ThumbnailUrl: "https://14blox.strangled.net/userlogo",
+			IsBanned: false
+		}
+		client.db("14blox").collection("users").insertOne(userData)
 		res.writeHead(200);
-		res.write("{'Status': 'OK'}");
+		res.write("{'Status': 'OK', 'UserInfo': " + JSON.stringify(userData) + "}");
 		res.end()
 	    } else if (path == "/UserCheck/validatepasswordforsignup") {
 		res.writeHead(200);
