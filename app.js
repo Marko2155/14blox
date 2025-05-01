@@ -271,10 +271,11 @@ http.createServer(async function(req, res) {
 		const upass = udata[1].split("=")[1]
 		let userList = await client.db("14blox").collection("users").find({}).toArray()
 		console.log(CircularJSON.stringify(userList))
+		console.log(userList)
 		client.db("14blox").collection("users").insertOne({
 			UserName: uname,
 			UserPassword: upass,
-			UserID: 200,
+			UserID: 2000,
 			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			IsAnyBuildersClubMember: true,
