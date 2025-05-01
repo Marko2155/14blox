@@ -269,7 +269,7 @@ http.createServer(async function(req, res) {
 		const udata = body.split("&")
 		const uname = udata[0].split("=")[1]
 		const upass = udata[1].split("=")[1]
-		let userList = await client.db("14blox").collection("users").find()
+		let userList = await client.db("14blox").collection("users").find({}).toArray()
 		console.log(CircularJSON.stringify(userList))
 		client.db("14blox").collection("users").insertOne({
 			UserName: uname,
