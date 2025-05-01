@@ -273,7 +273,7 @@ http.createServer(async function(req, res) {
 		let userData = {
 			UserName: uname,
 			UserPassword: upass,
-			UserID: userList[userList.length - 1].UserID,
+			UserID: userList[userList.length - 1].UserID + 1,
 			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			IsAnyBuildersClubMember: true,
@@ -283,6 +283,7 @@ http.createServer(async function(req, res) {
 		client.db("14blox").collection("users").insertOne(userData)
 		res.writeHead(200);
 		res.write("{'Status': 'OK', 'UserInfo': " + JSON.stringify(userData) + "}");
+		sessions[req.connection.remoteAddress.replaceAll(".", "")] = { UserName: userData.UserName, UserID: userData.UserID };
 		res.end()
 	    } else if (path == "/UserCheck/validatepasswordforsignup") {
 		res.writeHead(200);
