@@ -258,6 +258,24 @@ http.createServer(async function(req, res) {
 			res.writeHead(200);
 		}
 		res.end()
+	    } else if (path == "/mobileapi/securesignup") {
+		const udata = body.split("&")
+		const uname = udata[0].split("=")[1]
+		const upass = udata[1].split("=")[1]
+		let latestId = await client.db("14blox").collection("users").find().limit().sort({ $natural: -1})
+		client.db("14blox").collection("users").insertOne({
+			UserName: uname,
+			UserPassword: upass,
+			UserID: latestUser.UserID + 1,
+			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900),
+			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900),
+			IsAnyBuildersClubMember: true,
+		    	ThumbnailUrl: "https://14blox.strangled.net/userlogo",
+		    	IsBanned: false
+		})
+		res.writeHead(200);
+		res.write("{'Status': 'OK'}");
+		res.end()
 	    } else {
                 res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);
