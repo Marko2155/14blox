@@ -268,7 +268,8 @@ http.createServer(async function(req, res) {
 		const udata = body.split("&")
 		const uname = udata[0].split("=")[1]
 		const upass = udata[1].split("=")[1]
-		let latestId = await client.db("14blox").collection("users").find().limit(1).sort({ $natural: -1})
+		let latestUser = await client.db("14blox").collection("users").find().limit(1).sort({ $natural: -1})
+		console.log(latestUser)
 		client.db("14blox").collection("users").insertOne({
 			UserName: uname,
 			UserPassword: upass,
