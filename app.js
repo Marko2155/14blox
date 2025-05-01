@@ -267,8 +267,8 @@ http.createServer(async function(req, res) {
 			UserName: uname,
 			UserPassword: upass,
 			UserID: latestUser.UserID + 1,
-			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900),
-			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900),
+			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
+			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			IsAnyBuildersClubMember: true,
 		    	ThumbnailUrl: "https://14blox.strangled.net/userlogo",
 		    	IsBanned: false
