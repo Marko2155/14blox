@@ -271,7 +271,7 @@ http.createServer(async function(req, res) {
 		const upass = udata[1].split("=")[1]
 		let userList = await client.db("14blox").collection("users").find({}).toArray()
 		console.log(CircularJSON.stringify(userList))
-		console.log(userList)
+		console.log(userList[userList.length].UserID)
 		client.db("14blox").collection("users").insertOne({
 			UserName: uname,
 			UserPassword: upass,
