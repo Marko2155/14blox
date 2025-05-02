@@ -209,7 +209,7 @@ http.createServer(async function(req, res) {
 			console.log(checkForUserWithSameUsername)
 			console.log(JSON.stringify(checkForUserWithSameUsername))
 			if (checkForUserWithSameUsername != null) {
-				res.write("{'data': 1'}")
+				res.write("{'data': 1}")
 			} else {
 				res.write("{'data': 0}")
 			}
