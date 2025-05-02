@@ -34,7 +34,7 @@ if (process.platform === "win32") {
 
 
 function SendFile(res, file) {
-    let filetext = fs.readFileSync(file);
+    let filetext = fs.readFileSync(__dirname + "/" + file);
     res.write(filetext)
 }
 
@@ -222,6 +222,7 @@ http.createServer(async function(req, res) {
 			res.end()
 		}
 	} else if (path == "/My/Character.aspx") {
+		res.writeHead(200)
 		SendFile(res, "char.html")
 		res.end()
 	} else {
