@@ -223,7 +223,7 @@ http.createServer(async function(req, res) {
 		}
 	} else if (path == "/My/Character.aspx") {
 		res.writeHead(200)
-		SendFile(res, "char.html")
+		SendFile(res, "character.html")
 		res.end()
 	} else {
             res.writeHead(404);
