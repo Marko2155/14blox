@@ -256,7 +256,7 @@ http.createServer(async function(req, res) {
 		    sessions[req.connection.remoteAddress.replaceAll(".", "")] = { UserName: userData.UserName, UserID: userData.UserID };
                     res.end();
 			} else {
-				finishedData.Status = "Your 14blox account is banned. Please contact marko2155 on Discord to appeal your ban."
+				finishedData.Status = "InvalidPassword"
 				finishedData.UserInfo = null;
 			res.end()
 			}
