@@ -1,0 +1,35 @@
+<script>
+	function sendReq() {
+		var xmlhttp = new XMLHTTPRequest();
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHTTPRequest.DONE) {
+				if (xmlhttp.status == 200) {
+					document.getElementById("yeorno").innerText = "Saved!"
+				} else {
+					document.getElementById("yeorno").innerText = "There was an error: " + String(xmlhttp.status)
+				}
+			}
+		}
+
+		xmlhttp.open("POST", "/bodycolorchange")
+		var params = "head=" + document.getElementById("headcolor").innerText + "&torso=" + document.getElementById("torsocolor").innerText + "&leftarm=" + document.getElementById("leftarmcolor").innerText + "&rightarm=" + document.getElementById("rightarmcolor").innerText + "&leftleg=" + document.getElementById("leftlegcolor").innerText + "&rightleg=" + document.getElementById("rightlegcolor")
+		xmlhttp.send(params)
+	}
+</script>
+<h1>Character: </h1>
+<h2>Body colors:</h2>
+<label for="headcolor">HeadColor: </label>
+<input type="text" id="headcolor"></input>
+<label for="torsocolor">TorsoColor: </label>
+<input type="text" id="torsocolor"></input>
+<label for="leftarmcolor">LeftArmColor: </label>
+<input type="text" id="leftarmcolor"></input>
+<label for="rightarmcolor">RightArmColor: </label>
+<input type="text" id="rightarmcolor"></input>
+<label for="leftlegcolor">LeftLegColor: </label>
+<input type="text" id="leftlegcolor"></input>
+<label for="rightlegcolor">RightLegColor: </label>
+<input type="text" id="rightlegcolor"></input>
+<button onClick="sendReq()">Save</button>
+<p id="yeorno"></p>
