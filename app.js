@@ -206,6 +206,8 @@ http.createServer(async function(req, res) {
 		if (query.username != undefined || query.username != null || query.username != "") {
 			res.writeHead(200);
 			let checkForUserWithSameUsername = await client.db("14blox").collection("users").findOne({ UserName: query.username })
+			console.log(checkForUserWithSameUsername)
+			console.log(JSON.stringify(checkForUserWithSameUsername)
 			if (checkForUserWithSameUsername != null || checkForUserWithSameUsername != undefined || checkForUserWithSameUsername != "{}" || checkForUserWithSameUsername != {}) {
 				res.write("{'data': 1'}")
 			} else {
