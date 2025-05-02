@@ -285,7 +285,19 @@ http.createServer(async function(req, res) {
 			ThumbnailUrl: "https://14blox.strangled.net/userlogo",
 			IsBanned: false
 		}
+		let avatarData = {
+			uid: userList[userList.length - 1].UserID + 1,
+			BodyColors: {
+				HeadColor: "Bright yellow",
+				TorsoColor: "Blue",
+				LeftArmColor: "Bright yellow",
+				RightArmColor: "Bright yellow",
+				LeftLegColor: "Bright yellow",
+				RightLegColor: "Bright yellow"
+			}
+		}
 		client.db("14blox").collection("users").insertOne(userData)
+		client.db("14blox").collection("avatars").insertOne(avatarData)
 		res.writeHead(200);
 		res.write("{'Status': 'OK', 'UserInfo': " + JSON.stringify(userData) + "}");
 		sessions[req.connection.remoteAddress.replaceAll(".", "")] = { UserName: userData.UserName, UserID: userData.UserID };
