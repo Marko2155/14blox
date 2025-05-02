@@ -6,7 +6,7 @@ const crypto = require("crypto")
 const process = require("process")
 const { wrap } = require("module")
 const {MongoClient, ServerApiVersion} = require("mongodb")
-const uri = "mongodb+srv://14bloxJS:TLxUFjSLJXd1ebIo@14bloxdb.4yuwdsg.mongodb.net/?retryWrites=true&w=majority&appName=14bloxDB"
+const uri = process.env.MONGO_URI
 const host = "0.0.0.0"
 const port = 10000
 let key = "1122334455667788998877665544332211"
