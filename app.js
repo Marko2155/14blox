@@ -318,6 +318,29 @@ http.createServer(async function(req, res) {
 		res.writeHead(200);
 		res.write("{'success': true}")
 		res.end()
+	    } else if (path == "/setBodyColors") {
+		let bodyColors = req.body
+		if (sessions[req.connection.remoteAddress.replaceAll(".", "")] == null) {
+			res.writeHead(404)
+			res.write("goobai :D")
+			res.end()
+		} else {
+			let character = await client.db("14blox").collection("avatars").findOne({ uid: sessions[req.connection.remoteAddress.replaceAll(".", "")].UserID })
+			if (character == null || character == {}) {
+				res.writeHead(401)
+				res.write("Character not found!")
+				res.end()
+			} else {
+				res.writeHead(200)
+				const updateDocument = {
+					$set: {
+						BodyColors: bodyColors
+					}
+				}
+				res.end()
+			}
+
+		}
 	    } else {
                 res.write("what are you doing here, this API call doesn't exist.")
                 res.writeHead(404);

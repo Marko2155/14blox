@@ -1,20 +1,16 @@
 <script>
 	function sendReq() {
-		var xmlhttp = new XMLHTTPRequest();
-
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == XMLHTTPRequest.DONE) {
-				if (xmlhttp.status == 200) {
-					document.getElementById("yeorno").innerText = "Saved!"
-				} else {
-					document.getElementById("yeorno").innerText = "There was an error: " + String(xmlhttp.status)
-				}
-			}
+		var bodyColorsNew = {
+			"HeadColor": document.getElementById("headcolor").innerText,
+			"TorsoColor": document.getElementById("torsocolor").innerText,
+			"LeftArmColor": document.getElementById("leftarmcolor").innerText,
+			"RightArmColor": document.getElementById("rightarmcolor").innerText,
+			"LeftLegColor": document.getElementById("leftlegcolor").innerText,
+			"RightLegColor": document.getElementById("rightlegcolor").innerText,
 		}
 
-		xmlhttp.open("POST", "/bodycolorchange")
-		var params = "head=" + document.getElementById("headcolor").innerText + "&torso=" + document.getElementById("torsocolor").innerText + "&leftarm=" + document.getElementById("leftarmcolor").innerText + "&rightarm=" + document.getElementById("rightarmcolor").innerText + "&leftleg=" + document.getElementById("leftlegcolor").innerText + "&rightleg=" + document.getElementById("rightlegcolor")
-		xmlhttp.send(params)
+		fetch("/setBodyColors", method: 'POST', body: JSON.stringify(bodyColorsNew))
+		document.getElementById("yeorno").innerText = "Body colors saved!"
 	}
 </script>
 <h1>Character: </h1>
