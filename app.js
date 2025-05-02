@@ -215,6 +215,12 @@ http.createServer(async function(req, res) {
 			}
 			res.end()
 		}
+	} else if (path == "/getrecommendedusername") {
+		if (query.usernameToTry != null || query.usernameToTry != undefined) {
+			res.writeHead(200);
+			res.write(String(query.usernameToTry) + String(Math.floor(Math.random() * (1200 - 900 + 1)) + 900)
+			res.end()
+		}
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
