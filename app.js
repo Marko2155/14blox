@@ -218,7 +218,7 @@ http.createServer(async function(req, res) {
 	} else if (path == "/getrecommendedusername") {
 		if (query.usernameToTry != null || query.usernameToTry != undefined) {
 			res.writeHead(200);
-			res.write(String(query.usernameToTry) + String(Math.floor(Math.random() * (1200 - 900 + 1)) + 900)
+			res.write(String(query.usernameToTry) + String(Math.floor(Math.random() * (1200 - 900 + 1)) + 900))
 			res.end()
 		}
 	} else {
