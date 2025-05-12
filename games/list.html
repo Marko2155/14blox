@@ -7,18 +7,29 @@
 </head>
 <body>
     <h1>Hi!</h1>
+
+    <!-- Play Link -->
     <a href="/games/start?placeid=1&userID=1">Play!</a>
-    
-    <button onClick="document.getElementById('locshow').innerText = window.location.href;">Show URL</button>
-    
+
+    <!-- Show current URL -->
+    <button onclick="showURL()">Show URL</button>
+
     <p>Testing!</p>
-    
-    <p id="cookies">cookies</p>
-    
-    <script>
-        document.getElementById("cookies").innerText = "Cookies: " + document.cookie;
-    </script>
-    
+
+    <!-- Display Cookies -->
+    <p id="cookies">Loading cookies...</p>
+
+    <!-- URL Display Area -->
     <p id="locshow"></p>
+
+    <script>
+        // Display cookies
+        document.getElementById("cookies").innerText = "Cookies: " + document.cookie;
+
+        // Function to show current URL
+        function showURL() {
+            document.getElementById("locshow").innerText = "Current URL: " + window.location.href;
+        }
+    </script>
 </body>
 </html>
