@@ -8,3 +8,4 @@ it will be a random amount from 900-1200
 - [ ] Get games working
 - [ ] Get avatars working
 - [ ] Fully patch client
+- [ ] Fix 502 error
