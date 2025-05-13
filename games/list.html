@@ -1,8 +1,24 @@
-<h1>Hi!</h1>
-<a href="/games/start?placeid=1&userID=1">Play!</a>
-<button onClick="document.getElementById('locshow').innerText = location.href;" id="locshow">Show URL</button>
-<p>Testing!</p>
-<p id="cookies" >cookies</p>
-<script>
-	document.getElementById("cookies").innerText = document.cookie;
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14blox</title>
+</head>
+<body>
+    <h1>Hi!</h1>
+    <a href="/games/start?placeid=1&userID=1">Play!</a>
+    
+    <button onClick="document.getElementById('locshow').innerText = window.location.href;">Show URL</button>
+    
+    <p>Testing!</p>
+    
+    <p id="cookies">cookies</p>
+    
+    <script>
+        document.getElementById("cookies").innerText = "Cookies: " + document.cookie;
+    </script>
+    
+    <p id="locshow"></p>
+</body>
+</html>
