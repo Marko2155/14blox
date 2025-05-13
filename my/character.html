@@ -1,32 +1,56 @@
-
-<h1>Character: </h1>
+<h1>Character:</h1>
 <h2>Body colors:</h2>
+
 <label for="headcolor">HeadColor: </label>
-<input type="text" id="headcolor"></input>
+<input type="text" id="headcolor" /><br />
+
 <label for="torsocolor">TorsoColor: </label>
-<input type="text" id="torsocolor"></input>
+<input type="text" id="torsocolor" /><br />
+
 <label for="leftarmcolor">LeftArmColor: </label>
-<input type="text" id="leftarmcolor"></input>
+<input type="text" id="leftarmcolor" /><br />
+
 <label for="rightarmcolor">RightArmColor: </label>
-<input type="text" id="rightarmcolor"></input>
+<input type="text" id="rightarmcolor" /><br />
+
 <label for="leftlegcolor">LeftLegColor: </label>
-<input type="text" id="leftlegcolor"></input>
+<input type="text" id="leftlegcolor" /><br />
+
 <label for="rightlegcolor">RightLegColor: </label>
-<input type="text" id="rightlegcolor"></input>
-<button onClick="sendReq()">Save</button>
+<input type="text" id="rightlegcolor" /><br />
+
+<button onclick="sendReq()">Save</button>
+
 <p id="yeorno"></p>
+
 <script>
 	function sendReq() {
-		var bodyColorsNew = {
-			"HeadColor": document.getElementById("headcolor").innerText,
-			"TorsoColor": document.getElementById("torsocolor").innerText,
-			"LeftArmColor": document.getElementById("leftarmcolor").innerText,
-			"RightArmColor": document.getElementById("rightarmcolor").innerText,
-			"LeftLegColor": document.getElementById("leftlegcolor").innerText,
-			"RightLegColor": document.getElementById("rightlegcolor").innerText,
-		}
+		const bodyColorsNew = {
+			HeadColor: document.getElementById("headcolor").value,
+			TorsoColor: document.getElementById("torsocolor").value,
+			LeftArmColor: document.getElementById("leftarmcolor").value,
+			RightArmColor: document.getElementById("rightarmcolor").value,
+			LeftLegColor: document.getElementById("leftlegcolor").value,
+			RightLegColor: document.getElementById("rightlegcolor").value,
+		};
 
-		fetch("/setBodyColors", method: 'POST', body: JSON.stringify(bodyColorsNew))
-		document.getElementById("yeorno").innerText = "Body colors saved!"
+		fetch("/setBodyColors", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(bodyColorsNew),
+		})
+		.then(response => {
+			if (response.ok) {
+				document.getElementById("yeorno").innerText = "Body colors saved!";
+			} else {
+				document.getElementById("yeorno").innerText = "Error saving body colors.";
+			}
+		})
+		.catch(error => {
+			console.error("Fetch error:", error);
+			document.getElementById("yeorno").innerText = "Request failed.";
+		});
 	}
 </script>
