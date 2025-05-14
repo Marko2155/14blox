@@ -10,4 +10,4 @@ here da discord: https://discord.gg/PJWvryJ9QA
 - [ ] Get games working
 - [ ] Get avatars working
 - [ ] Fully patch client
-- [ ] Fix 502 error
+- [x] Fix 502 error
