@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roblox Avatar</title>
+</head>
+<body>
+    <h1>Roblox Avatar</h1>
+    <input type="text" id="username" placeholder="Enter username">
+    <button onclick="getAvatar()">Show Avatar</button>
+    <br><br>
+    <img id="avatar" src="" alt="Player Avatar" style="width:200px;height:200px;">
+
+    <script>
+        async function getAvatar() {
+            const username = document.getElementById("username").value;
+            if (!username) return alert("Please enter a username!");
+
+            try {
+                
+
+                const res1 = await fetch(`https://users.roblox.com/v1/usernames/users`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usernames: [username] })
+                });
+                const data1 = await res1.json();
+                const userId = data1.data[0]?.id;
+
+                if (!userId) return alert("User not found.");
+
+                
+                const res2 = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=true`);
+                const data2 = await res2.json();
+                const imageUrl = data2.data[0]?.imageUrl;
+
+                if (!imageUrl) return alert("Failed to retrieve avatar.");
+
+                document.getElementById("avatar").src = imageUrl;
+            } catch (error) {
+                console.error(error);
+                alert("An error occurred.");
+            }
+        }
+    </script>
+</body>
+</html>
