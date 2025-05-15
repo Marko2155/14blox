@@ -225,6 +225,10 @@ http.createServer(async function(req, res) {
 		res.writeHead(200)
 		SendFile(res, "my/character.html")
 		res.end()
+	} else if (path == "/notMobile") {
+		res.writeHead(200)
+		SendFile(res, "notMobile.html")
+		res.end()
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
