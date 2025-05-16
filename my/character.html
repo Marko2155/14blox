@@ -1,58 +1,310 @@
-<h1>Character:</h1>
-<h2>Body colors:</h2>
+<style>
 
-<label for="headcolor">HeadColor: </label>
-<input type="text" id="headcolor" /><br />
+    #bodyparts {
+      display: grid;
+      grid-template-areas:
+        ". head ."
+        ". head ."
+        "leftarm torso rightarm"
+        ". torso ."
+        "leftleg . rightleg";
+      grid-template-columns: 
+        60px 70px 60px
+        60px 50px 60px 
+        60px 50px 60px;
+      grid-template-rows: 50px 70px 70px;
+      gap: 0px;
+      width: max-content;
+      margin-bottom: 50px;
+    }
 
-<label for="torsocolor">TorsoColor: </label>
-<input type="text" id="torsocolor" /><br />
+    #head {
+      grid-area: head;
+      background-color: #000000;
+      width: 70px;
+      height: 70px;
+      border: solid 3px grey;
+      justify-self: center;
+      margin-top: 50px;
+    }
 
-<label for="leftarmcolor">LeftArmColor: </label>
-<input type="text" id="leftarmcolor" /><br />
+    #torso {
+      grid-area: torso;
+      background-color: #000000;
+      width: 70px;
+      height: 140px;
+      border: solid 3px grey;
+    }
 
-<label for="rightarmcolor">RightArmColor: </label>
-<input type="text" id="rightarmcolor" /><br />
+    #leftarm, #rightarm, #leftleg, #rightleg {
+      background-color: #000000;
+      width: 60px;
+      height: 70px;
+      border: solid 3px grey;
+    }
 
-<label for="leftlegcolor">LeftLegColor: </label>
-<input type="text" id="leftlegcolor" /><br />
+    #leftarm { grid-area: leftarm; width: 60px; height: 140px; }
+    #rightarm { grid-area: rightarm; width: 60px; height: 140px }
+    #leftleg { grid-area: leftleg; margin-left: 35px; width: 60px; height: 140px; }
+    #rightleg { grid-area: rightleg; margin-left: -35px; width: 60px; height: 140px; }
 
-<label for="rightlegcolor">RightLegColor: </label>
-<input type="text" id="rightlegcolor" /><br />
+    /* Optional: Color palette (same as your original layout) */
+    #colors button {
+      width: 50px;
+      height: 50px;
+      border: solid 3px grey;
+      margin-right: 5px;
+      
+    }
 
-<button onclick="sendReq()">Save</button>
+    #byell { background-color: #FFFF00; }
+    #blue { background-color: #0000EA; }
+    #red { background-color: #EA0000; }
+    #yell { background-color: #FFEA00; }
+    #gree { background-color: #00EA00; }
+    #bgree { background-color: #00FF00; }
+    #bblue { background-color: #0000FF; }
+    #bred { background-color: #FF0000; }
 
-<p id="yeorno"></p>
+    #colors {
+      margin-left: 250px;
+      margin-top: -250px;
+    }
 
-<script src="../notMobile.js"></script>
+#nowediting {
+        margin-left: 250px;
+      margin-top: -250px;
+}
+#savebutton {
+        margin-left: 250px;
+      margin-top: -250px;
+}
+</style>
+<h1>Character</h1>
+<div id="bodyparts">
+<button id="head"></button>
+<button id="torso"></button>
+<button id="leftarm"></button>
+<button id="rightarm"></button>
+<button id="leftleg"></button>
+<button id="rightleg"></button>
+</div>
 
+<div id="colors">
+<button id="byell"></button>
+<button id="blue"></button>
+<button id="red"></button>
+<button id="yell"></button>
+<button id="gree"></button>
+<button id="bgree"></button>
+<button id="bblue"></button>
+<button id="bred"></button>
+</div>
+<h1 id="nowediting">Now editing: HEAD</h1>
+<button id="savebutton">Save Character</button>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+<script src="https://esm.sh/whatwg-fetch" type="module"></script>
 <script>
-	function sendReq() {
-		const bodyColorsNew = {
-			HeadColor: document.getElementById("headcolor").value,
-			TorsoColor: document.getElementById("torsocolor").value,
-			LeftArmColor: document.getElementById("leftarmcolor").value,
-			RightArmColor: document.getElementById("rightarmcolor").value,
-			LeftLegColor: document.getElementById("leftlegcolor").value,
-			RightLegColor: document.getElementById("rightlegcolor").value,
-		};
+let nowediting = ""
+import "whatwg-fetch"
 
-		fetch("/setBodyColors", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(bodyColorsNew),
-		})
-		.then(response => {
-			if (response.ok) {
-				document.getElementById("yeorno").innerText = "Body colors saved!";
-			} else {
-				document.getElementById("yeorno").innerText = "Error saving body colors.";
-			}
-		})
-		.catch(error => {
-			console.error("Fetch error:", error);
-			document.getElementById("yeorno").innerText = "Request failed.";
-		});
-	}
+function convertToRoblox(hexcode) {
+  if (hexcode == "#FFEA00") {
+    return "Yellow"
+  } else if (hexcode == "#FFFF00") {
+    return "Bright yellow"
+  } else if (hexcode == "#0000EA") {
+    return "Blue"
+  } else if (hexcode == "#EA0000") {
+    return "Red"
+  } else if (hexcode == "#00EA00") {
+    return "Green"
+  } else if (hexcode == "#00FF00") {
+    return "Bright green"
+  } else if (hexcode == "#0000FF") {
+    return "Bright blue"
+  } else if (hexcode == "#FF0000") {
+    return "Bright red"
+  }
+}
+
+document.getElementById("savebutton").addEventListener("click", function() {
+  let bodyColors = {
+    HeadColor: convertToRoblox(document.getElementById("head").style.backgroundColor),
+    TorsoColor: convertToRoblox(document.getElementById("torso").style.backgroundColor),
+    LeftArmColor: convertToRoblox(document.getElementById("leftarm").style.backgroundColor),
+    RightArmColor: convertToRoblox(document.getElementById("rightarm").style.backgroundColor),
+    LeftLegColor: convertToRoblox(document.getElementById("leftleg").style.backgroundColor),
+    RightLegColor: convertToRoblox(document.getElementById("rightleg").style.backgroundColor)
+  }
+  window.fetch("/setBodyColors", {method: "POST", body: bodyColors})
+})
+
+document.getElementById("head").addEventListener("click", function() {
+  nowediting = "HEAD"
+  document.getElementById("nowediting").innerText = "Now editing: HEAD"
+})
+
+document.getElementById("torso").addEventListener("click", function() {
+  nowediting = "TORSO"
+  document.getElementById("nowediting").innerText = "Now editing: TORSO"
+})
+document.getElementById("leftarm").addEventListener("click", function() {
+  nowediting = "LEFTARM"
+  document.getElementById("nowediting").innerText = "Now editing: LEFT ARM"
+})
+document.getElementById("rightarm").addEventListener("click", function() {
+  nowediting = "RIGHTARM"
+  document.getElementById("nowediting").innerText = "Now editing: RIGHT ARM"
+})
+document.getElementById("leftleg").addEventListener("click", function() {
+  nowediting = "LEFTLEG"
+  document.getElementById("nowediting").innerText = "Now editing: LEFT LEG"
+})
+document.getElementById("rightleg").addEventListener("click", function() {
+  nowediting = "RIGHTLEG"
+  document.getElementById("nowediting").innerText = "Now editing: RIGHT LEG"
+})
+
+// colors
+
+document.getElementById("byell").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#FFFF00"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#FFFF00"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#FFFF00"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#FFFF00"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#FFFF00"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#FFFF00"
+  }
+})
+
+document.getElementById("bblue").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#0000FF"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#0000FF"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#0000FF"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#0000FF"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#0000FF"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#0000FF"
+  }
+})
+
+
+document.getElementById("bred").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#FF0000"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#FF0000"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#FF0000"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#FF0000"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#FF0000"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#FF0000"
+  }
+})
+
+
+
+document.getElementById("bgree").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#00FF00"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#00FF00"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#00FF00"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#00FF00"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#00FF00"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#00FF00"
+  }
+})
+
+
+
+document.getElementById("blue").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#0000EA"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#0000EA"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#0000EA"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#0000EA"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#0000EA"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#0000EA"
+  }
+})
+
+
+
+document.getElementById("red").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#EA0000"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#EA0000"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#EA0000"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#EA0000"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#EA0000"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#EA0000"
+  }
+})
+
+
+
+document.getElementById("gree").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#00EA00"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#00EA00"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#00EA00"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#00EA00"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#00EA00"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#00EA00"
+  }
+})
+
+
+document.getElementById("yell").addEventListener("click", function() {
+  if (nowediting == "HEAD") {
+    document.getElementById("head").style.backgroundColor = "#FFEA00"
+  } else if (nowediting == "TORSO") {
+    document.getElementById("torso").style.backgroundColor = "#FFEA00"
+  } else if (nowediting == "LEFTARM") {
+    document.getElementById("leftarm").style.backgroundColor = "#FFEA00"
+  } else   if (nowediting == "RIGHTARM") {
+    document.getElementById("rightarm").style.backgroundColor = "#FFEA00"
+  } else   if (nowediting == "LEFTLEG") {
+    document.getElementById("leftleg").style.backgroundColor = "#FFEA00"
+  } else   if (nowediting == "RIGHTLEG") {
+    document.getElementById("rightleg").style.backgroundColor = "#FFEA00"
+  }
+})
+
+
 </script>
