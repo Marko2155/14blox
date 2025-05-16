@@ -77,6 +77,11 @@ async function GetGame(placeId) {
 	return place
 }
 
+async function GetAvatar(avatarId) {
+		let avatar = await client.db("14blox").collection("avatars").findOne({ uid: avatarId });
+		return avatar
+}
+
 function confirmSessionExists(ip) {
 	if (sessions[ip.replaceAll(".", "")] == undefined || sessions[ip.replaceAll(".", "")] == null) {
 		return false
@@ -229,7 +234,22 @@ http.createServer(async function(req, res) {
 		res.writeHead(200)
 		SendFile(res, "notMobile.html")
 		res.end()
-	} else {
+	} else if (path == "/getAvatar") {
+		if (query.avatarId != null || query.avatarId != "") {
+			let avatar = GetAvatar(avatarId)
+			if (avatar == null) {
+				res.writeHead(404)
+				res.end()
+			} else {
+				res.writeHead(200)
+				res.write(avatar)
+				res.end()
+			}
+		} else {
+			res.writeHead(401)
+			res.end()
+		}
+	} {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
             res.end();
