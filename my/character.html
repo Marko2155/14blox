@@ -103,10 +103,8 @@
 <h1 id="nowediting">Now editing: HEAD</h1>
 <button id="savebutton">Save Character</button>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
-<script src="https://esm.sh/whatwg-fetch" type="module"></script>
 <script>
 let nowediting = ""
-import "whatwg-fetch"
 
 function convertToRoblox(hexcode) {
   if (hexcode == "#FFEA00") {
@@ -137,7 +135,7 @@ document.getElementById("savebutton").addEventListener("click", function() {
     LeftLegColor: convertToRoblox(document.getElementById("leftleg").style.backgroundColor),
     RightLegColor: convertToRoblox(document.getElementById("rightleg").style.backgroundColor)
   }
-  window.fetch("/setBodyColors", {method: "POST", body: bodyColors})
+  fetch("/setBodyColors", {method: "POST", body: bodyColors})
 })
 
 document.getElementById("head").addEventListener("click", function() {
