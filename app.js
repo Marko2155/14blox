@@ -361,6 +361,7 @@ http.createServer(async function(req, res) {
 						BodyColors: bodyColors
 					}
 				}
+				await client.db("14blox").collection("avatars").updateOne({ uid: sessions[req.connection.remoteAddress.replaceAll(".", "")].UserID }, updateDocument})
 				res.end()
 			}
 
