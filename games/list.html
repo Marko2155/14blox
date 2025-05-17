@@ -6,20 +6,28 @@
     <title>14blox</title>
 </head>
 <body>
-    <h1>Hi!</h1>
-    <a href="/games/start?placeid=1&userID=1">Play!</a>
-    
-    <button onClick="document.getElementById('locshow').innerText = window.location.href;">Show URL</button>
-    
-    <p>Testing!</p>
-    
-    <p id="cookies">cookies</p>
-    
-    <script>
-        document.getElementById("cookies").innerText = "Cookies: " + document.cookie;
-    </script>
-    
+    <h1>Welcome to 14blox!</h1>
+
+   
+    <a href="https://14blox.strangled.net/games/start?placeid=1&userID=1=true" target="_blank">
+        <button>Play!</button>
+    </a>
+
+   
+    <button onclick="document.getElementById('locshow').innerText = window.location.href;">
+        Show Current URL
+    </button>
+
+   
+    <p id="cookies">Cookies: <span id="cookieVal">Loading...</span></p>
     <p id="locshow"></p>
+
+    <script>
+     
+        document.getElementById("cookieVal").innerText = document.cookie || "(No cookies)";
+    </script>
+
+    
+    <script src="../notMobile.js"></script>
 </body>
-<script src="../notMobile.js"></script>
 </html>
