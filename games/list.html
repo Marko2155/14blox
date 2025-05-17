@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>14blox</title>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Home</title>
+  <style>
+   .games {
+     padding: 10px;
+     padding-bottom: 0px;
+   }
+
+  .game {
+    margin: 4px;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: auto;
+  }
+  </style>
 </head>
 <body>
-    <h1>Hi!</h1>
-    <a href="/games/start?placeid=1&userID=1">Play!</a>
-    
-    <button onClick="document.getElementById('locshow').innerText = window.location.href;">Show URL</button>
-    
-    <p>Testing!</p>
-    
-    <p id="cookies">cookies</p>
-    
-    <script>
-        document.getElementById("cookies").innerText = "Cookies: " + document.cookie;
-    </script>
-    
-    <p id="locshow"></p>
+  <div class="games">
+    <h1>Games<button id="locshow" onclick="document.getElementById('locshow').textContent = location.href;">Show URL</button></h1>
+    <button onClick="window.location.href = '/games/start?placeid=1&userID=1'" class="game">
+      <img src="https://picsum.photos/1280/720" width="150" height="90">
+      <div id="gametext">123456789</div>
+    </button>
+  </div>
 </body>
-<script src="../notMobile.js"></script>
 </html>
