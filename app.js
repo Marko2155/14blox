@@ -98,6 +98,7 @@ http.createServer(async function(req, res) {
     if (path.charAt(path.length - 1) == "?") {
         query = parsedpath.split("?")[1].replace("?", "")
     }
+    console.log("Unknown method requested: " + req.method + ", with endpoint " + path)
     if (req.method == "GET") {
         console.log("GET " + path)
         console.log(query)
@@ -318,7 +319,7 @@ http.createServer(async function(req, res) {
 			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			IsAnyBuildersClubMember: true,
-			ThumbnailUrl: "https://14blox.strangled.net/userlogo",
+			ThumbnailUrl: "https://14blox.strangled.net/Asset?id=1",
 			IsBanned: false
 		}
 		let avatarData = {

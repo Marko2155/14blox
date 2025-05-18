@@ -11,3 +11,5 @@ here da discord👇: https://discord.gg/PJWvryJ9QA
 - [ ] Get avatars working
 - [ ] Fully patch client
 - [x] Fix 502 error
+- [ ] iOS Support
+- [ ] Desktop support
