@@ -319,7 +319,7 @@ http.createServer(async function(req, res) {
 			RobuxBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			TicketsBalance: Math.floor(Math.random() * (1200 - 900 + 1)) + 900,
 			IsAnyBuildersClubMember: true,
-			ThumbnailUrl: "https://14blox.strangled.net/userlogo",
+			ThumbnailUrl: "https://14blox.strangled.net/Asset?id=1",
 			IsBanned: false
 		}
 		let avatarData = {
