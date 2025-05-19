@@ -251,6 +251,7 @@ http.createServer(async function(req, res) {
 			res.end()
 		}
 	} else if (path.startsWith("/static/")) {
+		// hi
 		if (fs.existsSync(path)) {
 			res.writeHead(200)
 			res.write(fs.readFileSync(path))
