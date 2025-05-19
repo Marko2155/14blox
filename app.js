@@ -251,8 +251,8 @@ http.createServer(async function(req, res) {
 			res.end()
 		}
 	} else if (path.startsWith("/static/")) {
-		let str = 'Hello World'.split('')
-		str.splice(1, 1)
+		let str = path.split('')
+		str.splice(0, 1)
 		str = str.join('')
 		if (fs.existsSync(path)) {
 			res.writeHead(200)
