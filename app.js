@@ -171,7 +171,7 @@ http.createServer(async function(req, res) {
 		}
 		res.write("game:GetService('GuiService'):SendNotification('Badge Awarded!', message, 'https://14blox.strangled.net/Asset?id=177200377', 5, noOptFunc)")
 		res.end()
-	} else if (path == "/Game/Negotiate.ashx") {
+	} else if (path == "/Login/Negotiate.ashx") {
 		let sessionExists = confirmSessionExists(req.connection.localAddress)
 		if (sessionExists) {
 		let userData = await GetUserData(userData.UserName)
@@ -262,7 +262,7 @@ http.createServer(async function(req, res) {
 			res.writeHead(404)
 			res.end()
 		}
-	} else if (path == "/game/visit.ashx") {
+	} else if (path == "/Game/visit.ashx") {
 		res.writeHead(200)
 		res.write(fs.readFileSync(__dirname + "/joinscripts/visit.lua"))
 		res.end()
