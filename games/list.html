@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
-  <title>Home</title>
+  <title>14blox</title>
   <style>
    .games {
      padding: 10px;
@@ -21,13 +21,47 @@
   </style>
 </head>
 <body>
+	<nav>
+		<ul>
+			<li><a href="/"><img src="/Asset?id=4" width="64.3" height="24.6" alt="14blox"></a></li>
+			<li><a href="/games">Games</a></li>
+			<li><a href="/My/Character.aspx">Avatar</a></li>
+		</ul>
+	</nav>
   <div class="games">
-    <h1>Games<button id="locshow" onclick="document.getElementById('locshow').textContent = location.href;">Show URL</button></h1>
+    <h1>Games/h1>
 	<div id="game">
-		<img src="/Asset?id=5" alt="Work at a Pizza Place">
+		<img src="/Asset?id=5" width="400" height="300" alt="Work at a Pizza Place">
 		<h2>Work at a Pizza Place!</h2>
-		<a href="/games/start?placeid=1&userID=1"><img src="/Asset?id=2" alt="Play!"></a>
+		<a href="/games/start?placeid=1&userID=1"><img src="/Asset?id=2" width="150" height="100"alt="Play!"></a>
 	</div>
   </div>
 </body>
+<script>
+var hasTouchScreen = false;
+
+if ("maxTouchPoints" in navigator) {
+    hasTouchScreen = navigator.maxTouchPoints > 0;
+} else if ("msMaxTouchPoints" in navigator) {
+    hasTouchScreen = navigator.msMaxTouchPoints > 0;
+} else {
+    var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
+    if (mQ && mQ.media === "(pointer:coarse)") {
+        hasTouchScreen = !!mQ.matches;
+    } else if ('orientation' in window) {
+        hasTouchScreen = true; // deprecated, but good fallback
+    } else {
+        // Only as a last resort, fall back to user agent sniffing
+        var UA = navigator.userAgent;
+        hasTouchScreen = (
+            /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+            /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+        );
+    }
+}
+
+if (hasTouchScreen) {
+	document.getElementsByTagName("nav").hidden = true
+}
+</script>
 </html>
