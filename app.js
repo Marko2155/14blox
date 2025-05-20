@@ -276,6 +276,10 @@ http.createServer(async function(req, res) {
 		res.writeHead(200)
 		res.write(authticket)
 		res.end()
+	} else if (path == "/favicon.ico") {
+		res.writeHead(200);
+		res.write(fs.readFileSync(__dirname + "/favicon.ico"))
+		res.end()
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
