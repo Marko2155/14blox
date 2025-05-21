@@ -89,6 +89,10 @@ if ("maxTouchPoints" in navigator) {
 
 if (hasTouchScreen) {
 	document.getElementsByTagName("nav").hidden = true
+	document.getElementById("gamePlay").href = "/games/start?placeid=1&userID=0"
+} else {
+	document.getElementsByTagName("nav").hidden = false
+	document.getElementById("gamePlay").href = "fourteenblox://?placeid=1"
 }
 </script>
 </html>
