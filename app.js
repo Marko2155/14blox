@@ -78,7 +78,7 @@ async function GetGame(placeId) {
 }
 
 async function GetAvatar(avatarId) {
-		let avatar = await client.db("14blox").collection("avatars").findOne({ uid: avatarId });
+		let avatar = await client.db("14blox").collection("avatars").findOne({ uid: Number(avatarId) });
 		return avatar
 }
 
@@ -177,8 +177,10 @@ http.createServer(async function(req, res) {
 		let userData = await GetUserData(userData.UserName)
 		if (!userData.IsBanned) {
 			const ROBLOSECURITY = xor("14BLOX-" + userData.UserName + String(userData.UserId))
-			res.writeHead(200)
-			res.write(ROBLOSECURITY)
+			let unameCookie = `username=${userData.UserName}`
+			let passCookie = `password=${userData.UserPassword}`
+			let ROBLOSECcookie = `.ROBLOSECURITY=${ROBLOSECURITY}`
+			res.writeHead(200, {'Set-Cookie': unameCookie, 'Set-Cookie': passCookie, 'Set-Cookie': ROBLOSECcookie, 'Content-Type': 'text/plain'})
 		} else {
 			res.writeHead(401)
 		}
@@ -192,7 +194,7 @@ http.createServer(async function(req, res) {
 		res.end()
 	} else if (path == "/Game/Ping.ashx") {
 		res.writeHead(200);
-		res.write("Ping OK")
+		res.write("")
 		res.end()
 	} else if (path == "/Asset") {
 		if (query.id != undefined || query.id != null) {
@@ -279,7 +281,7 @@ http.createServer(async function(req, res) {
 	} else if (path == "/favicon.ico") {
 		res.writeHead(200);
 		res.write(fs.readFileSync(__dirname + "/favicon.ico"))
-		res.end()
+		res.end() 
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
