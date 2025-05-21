@@ -119,7 +119,7 @@ http.createServer(async function(req, res) {
 	        res.write(fs.readFileSync("img/userlogo.png"));
         } else if (path == "/games/start") {
             res.writeHead(200);
-            res.write("<script>location.href = 'fourteenblox://placeid=" + String(query.placeid) + "'</script>")
+            res.write("<script>location.href = 'fourteenblox://?placeid=" + String(query.placeid) + "'</script>")
             res.end();
         } else if (path == "/status") {
             res.writeHead(200);
