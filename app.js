@@ -282,6 +282,36 @@ http.createServer(async function(req, res) {
 		res.writeHead(200);
 		res.write(fs.readFileSync(__dirname + "/favicon.ico"))
 		res.end() 
+	} else if (path == "/Asset/CharacterFetch.ashx") {
+		if (query.userId != null) {
+			let userAvatar = GetAvatar(userId)
+			if (userAvatar == null) {
+				res.writeHead(404)
+				res.end()
+			} else {
+				res.writeHead(404)
+				res.write(`
+					<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+  						<External>null</External>
+  						<External>nil</External>
+  						<Item class="BodyColors">
+    						<Properties>
+      							<int name="HeadColor">194</int>
+      							<int name="LeftArmColor">194</int>
+      							<int name="LeftLegColor">102</int>
+      							<string name="Name">Body Colors</string>
+      							<int name="RightArmColor">194</int>
+      							<int name="RightLegColor">102</int>
+      							<int name="TorsoColor">23</int>
+      							<bool name="archivable">true</bool>
+    						</Properties>
+  						</Item>
+					</roblox>`)
+			}
+		} else {
+			res.writeHead(401)
+			res.end()
+		}
 	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
