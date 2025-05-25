@@ -335,7 +335,7 @@ http.createServer(async function(req, res) {
 		}
 	} else if (path == "/Asset/CharacterFetch.ashx") {
 		if (query.userId != null) {
-			let doesUserExist = db("14blox").collection("avatars").findOne({ UserID: query.userId })
+			let doesUserExist = client.db("14blox").collection("avatars").findOne({ UserID: query.userId })
 			if (doesUserExist != "" || doesUserExist != null) {
 				res.writeHead(200)
 				res.write("https://14blox.strangled.net/Asset/BodyColors.ashx?userId=" + String(query.userId))
