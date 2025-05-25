@@ -297,22 +297,22 @@ http.createServer(async function(req, res) {
 			} else {
 				res.writeHead(200)
 				res.write(`
-					<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
-  						<External>null</External>
-  						<External>nil</External>
-  						<Item class="BodyColors">
-    						<Properties>
-      							<int name="HeadColor">${convertToRoblox(userAvatar.HeadColor)}</int>
-      							<int name="LeftArmColor">${convertToRoblox(userAvatar.LeftArmColor)}</int>
-      							<int name="LeftLegColor">${convertToRoblox(userAvatar.LeftLegColor)}</int>
-      							<string name="Name">Body Colors</string>
-      							<int name="RightArmColor">${convertToRoblox(userAvatar.RightArmColor)}</int>
-      							<int name="RightLegColor">${convertToRoblox(userAvatar.RightLegColor)}</int>
-      							<int name="TorsoColor">${convertToRoblox(userAvatar.TorsoColor)}</int>
-      							<bool name="archivable">true</bool>
-    						</Properties>
-  						</Item>
-					</roblox>`)
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="BodyColors">
+		<Properties>
+			<int name="HeadColor">${convertToRoblox(userAvatar.HeadColor)}</int>
+      			<int name="LeftArmColor">${convertToRoblox(userAvatar.LeftArmColor)}</int>
+      			<int name="LeftLegColor">${convertToRoblox(userAvatar.LeftLegColor)}</int>
+      			<string name="Name">Body Colors</string>
+      			<int name="RightArmColor">${convertToRoblox(userAvatar.RightArmColor)}</int>
+      			<int name="RightLegColor">${convertToRoblox(userAvatar.RightLegColor)}</int>
+      			<int name="TorsoColor">${convertToRoblox(userAvatar.TorsoColor)}</int>
+			<bool name="archivable">true</bool>
+		</Properties>
+	</Item>
+</roblox>`)
 				res.end()
 			}
 		} else {
