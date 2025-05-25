@@ -313,6 +313,7 @@ http.createServer(async function(req, res) {
     						</Properties>
   						</Item>
 					</roblox>`)
+				res.end()
 			}
 		} else {
 			res.writeHead(401)
