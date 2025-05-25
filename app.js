@@ -329,7 +329,8 @@ http.createServer(async function(req, res) {
 				}
 				res.end()
 			}
-		} else if (path == "/getUserAvatarImage") {
+		}
+	} else if (path == "/getUserAvatarImage") {
 			if (query.userId != null) {
 				let userExists = await db("14blox").collection("users").findOne({ UserID: query.userId })
 				if (userExists != null || userExists != "") {
@@ -356,10 +357,6 @@ http.createServer(async function(req, res) {
 				res.writeHead(404)
 				res.end()
 			}
-		} else {
-			res.writeHead(401)
-			res.end()
-		}
 	} else {
 		res.writeHead(401)
 		res.end()
