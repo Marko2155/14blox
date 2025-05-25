@@ -294,6 +294,7 @@ http.createServer(async function(req, res) {
 				res.writeHead(404)
 				res.end()
 			} else {
+				console.log(userAvatar)
 				userAvatar = userAvatar.BodyColors;
 				res.writeHead(200)
 				res.write(`
