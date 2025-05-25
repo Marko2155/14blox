@@ -332,9 +332,9 @@ http.createServer(async function(req, res) {
 		}
 	} else if (path == "/getUserAvatarImage") {
 			if (query.userId != null) {
-				let userExists = await db("14blox").collection("users").findOne({ UserID: query.userId })
+				let userExists = await client.db("14blox").collection("users").findOne({ UserID: query.userId })
 				if (userExists != null || userExists != "") {
-					let userAvatar = await db("14blox").collection("avatars").findOne({ uid: query.userId})
+					let userAvatar = await client.db("14blox").collection("avatars").findOne({ uid: query.userId})
 					thumbnailData = userAvatar.thumbnailData
 					res.writeHead(200)
 					res.end()
