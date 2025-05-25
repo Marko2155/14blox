@@ -47,6 +47,26 @@ function SendFile(res, file) {
   }
 })();
 
+function convertToRoblox(color) {
+		if (color == "Bright yellow") {
+			return 157;
+		} else if (color == "Bright red") {
+			return 1004;
+		} else if (color == "Bright blue") {
+			return 1010;
+		} else if (color == "Bright green") {
+			return 1020;
+		} else if (color == "Yellow") {
+			return 24;
+		} else if (color == "Red") {
+			return 21;
+		} else if (color == "Blue") {
+			return 23;
+		} else if (color == "Green") {
+			return 37;
+		}
+}
+
 function xor(str, key) {     
         str = String(str).split('').map(letter => letter.charCodeAt());
         let res = "";
@@ -282,9 +302,10 @@ http.createServer(async function(req, res) {
 		res.writeHead(200);
 		res.write(fs.readFileSync(__dirname + "/favicon.ico"))
 		res.end() 
-	} else if (path == "/Asset/CharacterFetch.ashx") {
+	} else if (path == "/Asset/BodyColors.ashx") {
 		if (query.userId != null) {
 			let userAvatar = GetAvatar(userId)
+			userAvatar = userAvatar.BodyColors
 			if (userAvatar == null) {
 				res.writeHead(404)
 				res.end()
@@ -296,17 +317,32 @@ http.createServer(async function(req, res) {
   						<External>nil</External>
   						<Item class="BodyColors">
     						<Properties>
-      							<int name="HeadColor">194</int>
-      							<int name="LeftArmColor">194</int>
-      							<int name="LeftLegColor">102</int>
+      							<int name="HeadColor">${convertToRoblox(userAvatar.HeadColor)}</int>
+      							<int name="LeftArmColor">${convertToRoblox(userAvatar.LeftArmColor)}</int>
+      							<int name="LeftLegColor">${convertToRoblox(userAvatar.LeftLegColor)}</int>
       							<string name="Name">Body Colors</string>
-      							<int name="RightArmColor">194</int>
-      							<int name="RightLegColor">102</int>
-      							<int name="TorsoColor">23</int>
+      							<int name="RightArmColor">${convertToRoblox(userAvatar.RightArmColor)}</int>
+      							<int name="RightLegColor">${convertToRoblox(userAvatar.RightLegColor)}</int>
+      							<int name="TorsoColor">${convertToRoblox(userAvatar.TorsoColor)}</int>
       							<bool name="archivable">true</bool>
     						</Properties>
   						</Item>
 					</roblox>`)
+			}
+		} else {
+			res.writeHead(401)
+			res.end()
+		}
+	} else if (path == "/Asset/CharacterFetch.ashx") {
+		if (query.userId != null) {
+			let doesUserExist = db("14blox").collection("avatars").findOne({ UserID: query.userId })
+			if (doesUserExist != "" || doesUserExist != null) {
+				res.writeHead(200)
+				res.write("https://14blox.strangled.net/Asset/BodyColors.ashx?userId=" + String(query.userId))
+				res.end()
+			} else {
+				res.writeHead(404)
+				res.end()
 			}
 		} else {
 			res.writeHead(401)
