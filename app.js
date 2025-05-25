@@ -98,7 +98,7 @@ async function GetGame(placeId) {
 }
 
 async function GetAvatar(avatarId) {
-		let avatar = await client.db("14blox").collection("avatars").findOne({ uid: Number(avatarId) });
+		let avatar = await client.db("14blox").collection("avatars").findOne({ uid: avatarId });
 		return avatar
 }
 
