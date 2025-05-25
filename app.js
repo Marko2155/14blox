@@ -454,8 +454,9 @@ http.createServer(async function(req, res) {
 
 		}
 	    } else {
-                res.write("what are you doing here, this API call doesn't exist.")
-                res.writeHead(404);
+		res.writeHead(404);
+                res.write("what are you doing here, this API call doesn't exist.") 
+		res.end()
             }
         })
     }
