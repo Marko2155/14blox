@@ -292,9 +292,9 @@ http.createServer(async function(req, res) {
 			let userAvatar = GetAvatar(Number(query.userId))
 			if (userAvatar == null) {
 				res.writeHead(404)
-				res.write(JSON.stringify(userAvatar))
 				res.end()
 			} else {
+				userAvatar = userAvatar.BodyColors;
 				res.writeHead(200)
 				res.write(`
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
