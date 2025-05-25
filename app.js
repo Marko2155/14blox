@@ -319,6 +319,7 @@ http.createServer(async function(req, res) {
 			res.end()
 		}
 	} else if (path == "/Asset/CharacterFetch.ashx") {
+		// hi
 		if (query.userId != null) {
 			let doesUserExist = client.db("14blox").collection("avatars").findOne({ UserID: query.userId })
 			if (doesUserExist != "" || doesUserExist != null) {
