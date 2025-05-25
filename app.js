@@ -295,7 +295,7 @@ http.createServer(async function(req, res) {
 				res.writeHead(404)
 				res.end()
 			} else {
-				res.writeHead(404)
+				res.writeHead(200)
 				res.write(`
 					<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
   						<External>null</External>
