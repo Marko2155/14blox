@@ -324,7 +324,7 @@ http.createServer(async function(req, res) {
 						HeadColor: convertToRoblox(userAvatar.HeadColor),
 						TorsoColor: convertToRoblox(userAvatar.TorsoColor)
 					}
-					res.write(bodyColors)
+					res.write(JSON.stringify(bodyColors))
 				}
 				res.end()
 			}
