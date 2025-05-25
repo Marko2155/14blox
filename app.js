@@ -326,7 +326,7 @@ http.createServer(async function(req, res) {
 			let doesUserExist = client.db("14blox").collection("avatars").findOne({ UserID: query.userId })
 			if (doesUserExist != "" || doesUserExist != null) {
 				res.writeHead(200)
-				res.write("https://14blox.strangled.net/Asset/BodyColors.ashx?userId=" + String(query.userId))
+				res.write("https://14blox.strangled.net/Asset/BodyColors.ashx?userId=" + String(query.userId) + ";")
 				res.end()
 			} else {
 				res.writeHead(404)
