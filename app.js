@@ -361,6 +361,10 @@ http.createServer(async function(req, res) {
 			res.end()
 		}
 	} else {
+		res.writeHead(401)
+		res.end()
+	}
+	} else {
             res.writeHead(404);
             WriteNewline(res, "what are you doing here, this page doesn't exist.")
             res.end();
