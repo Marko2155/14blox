@@ -334,7 +334,7 @@ http.createServer(async function(req, res) {
 			if (query.userId != null) {
 				let userExists = await client.db("14blox").collection("users").findOne({ UserID: query.userId })
 				if (userExists != null || userExists != "") {
-					let userAvatar = await client.db("14blox").collection("avatars").findOne({ uid: query.userId})
+					let userAvatar = await GetAvatar(Number(query.userId))
 					thumbnailData = userAvatar.thumbnailData
 					res.writeHead(200)
 					res.end()
