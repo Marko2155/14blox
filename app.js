@@ -329,6 +329,22 @@ http.createServer(async function(req, res) {
 				}
 				res.end()
 			}
+		} else if (path == "/Asset/getUserAvatarImage") {
+			if (query.userId != null) {
+				let userExists = await db("14blox").collection("users").findOne({ UserID: query.userId })
+				if (userExists != null || userExists != "") {
+					let userAvatar = await db("14blox").collection("avatars").findOne({ uid: query.userId})
+					thumbnailData = userAvatar.thumbnailData
+					res.writeHead(200)
+					res.end()
+				} else {
+					res.writeHead(404)
+					res.end()
+				}
+			} else {
+				res.writeHead(401)
+				res.end()
+			}
 		} else {
 			res.writeHead(401)
 			res.end()
@@ -430,7 +446,8 @@ http.createServer(async function(req, res) {
 				RightArmColor: "Bright yellow",
 				LeftLegColor: "Bright yellow",
 				RightLegColor: "Bright yellow"
-			}
+			},
+			thumbnailData: ""
 		}
 		client.db("14blox").collection("users").insertOne(userData)
 		client.db("14blox").collection("avatars").insertOne(avatarData)
@@ -466,6 +483,16 @@ http.createServer(async function(req, res) {
 			}
 
 		}
+	    } else if (path == "/Asset/uploadUserAvatar") {
+		    if (query.userId != null) {
+			res.writeHead(200)
+			const buffer = Buffer.from(body, "base64")
+			await client.db("14blox").collection("avatars").updateOne({ uid: query.userId}, {$set: { thumbnailData: buffer }})
+		    	res.end()
+		    } else {
+			res.writeHead(404)
+			res.end()
+		    }
 	    } else {
 		res.writeHead(404);
                 res.write("what are you doing here, this API call doesn't exist.") 
