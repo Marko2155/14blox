@@ -257,21 +257,6 @@ http.createServer(async function(req, res) {
 		res.writeHead(200)
 		SendFile(res, "notMobile.html")
 		res.end()
-	} else if (path == "/getAvatar") {
-		if (query.avatarId != null || query.avatarId != "") {
-			let avatar = GetAvatar(avatarId)
-			if (avatar == null) {
-				res.writeHead(404)
-				res.end()
-			} else {
-				res.writeHead(200)
-				res.write(avatar)
-				res.end()
-			}
-		} else {
-			res.writeHead(401)
-			res.end()
-		}
 	} else if (path.startsWith("/static/")) {
 		let str = path.split('')
 		str.splice(0, 1)
@@ -304,7 +289,7 @@ http.createServer(async function(req, res) {
 		res.end() 
 	} else if (path == "/Asset/BodyColors.ashx") {
 		if (query.userId != null) {
-			let userAvatar = GetAvatar(userId)
+			let userAvatar = GetAvatar(query.userId)
 			userAvatar = userAvatar.BodyColors
 			if (userAvatar == null) {
 				res.writeHead(404)
