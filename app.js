@@ -289,7 +289,7 @@ http.createServer(async function(req, res) {
 		res.end() 
 	} else if (path == "/Asset/BodyColors.ashx") {
 		if (query.userId != null) {
-			let userAvatar = GetAvatar(query.userId)
+			let userAvatar = GetAvatar(Number(query.userId))
 			userAvatar = userAvatar.BodyColors
 			if (userAvatar == null) {
 				res.writeHead(404)
