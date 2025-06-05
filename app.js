@@ -482,8 +482,7 @@ http.createServer(async function(req, res) {
 	    } else if (path == "/Asset/uploadUserAvatar") {
 		    if (query.userId != null) {
 			res.writeHead(200)
-			const buffer = Buffer.from(body, "base64")
-			await client.db("14blox").collection("avatars").updateOne({ uid: query.userId}, {$set: { thumbnailData: buffer }})
+			await client.db("14blox").collection("avatars").updateOne({ uid: query.userId}, {$set: { thumbnailData: body }})
 		    	res.end()
 		    } else {
 			res.writeHead(404)
