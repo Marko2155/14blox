@@ -296,7 +296,7 @@ http.createServer(async function(req, res) {
 			} else {
 				console.log(userAvatar)
 				userAvatar = userAvatar.BodyColors;
-				if (query.rcc == null) {
+				if (query.rcc != null) {
 				res.writeHead(200)
 				res.write(`
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
