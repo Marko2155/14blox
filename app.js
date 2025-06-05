@@ -275,7 +275,7 @@ http.createServer(async function(req, res) {
 		res.end()
 	} else if (path == "/game-auth/getauthticket") {
 		let authticket = ""
-		if (sessions[req.connection.remoteAddress.replaceAll(".", "")] == null) {
+		if (sessions[req.connection.remoteAddress.replaceAll(".", "")] != null) {
 			authticket = sessions[req.connection.remoteAddress.replaceAll(".", "")].UserName + String(sessions[req.connection.remoteAddress.replaceAll(".", "")].UserID) + String(Math.random() * 999)
 		} else {
 			authticket = "Guest " + String(Math.random() * 99) + "0"
