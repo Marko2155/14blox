@@ -422,6 +422,7 @@ http.createServer(async function(req, res) {
 		const udata = body.split("&")
 		const uname = udata[0].split("=")[1]
 		const upass = udata[1].split("=")[1]
+		console.log(udata)
 		let userList = await client.db("14blox").collection("users").find({}).toArray()
 		let userData = {
 			UserName: uname,
