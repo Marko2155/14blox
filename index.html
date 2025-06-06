@@ -24,12 +24,30 @@ li a {
   padding: 4px 4px;
   text-decoration: none;
 }
+
+li button {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 4px 4px;
+	text-decoration: none;
+	border: none;
+	background: none;
+}
 </style>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <ul>
 	<li><a href="/"><img src="/Asset?id=4" width="64.3" height="24.6" alt="14blox"></a></li>
 	<li><a href="/games/list">Games</a></li>
 	<li><a href="/My/Character.aspx">Avatar</a></li>
+	<div id="loginPart" style="float: right;">
+		<li><button id="login">Log In</button></li>
+		<li><button id="signup">Sign Up</button></li>
+	</div>
+	<div id="loggedInPart" hidden style="float: right;">
+		<li><p id="username"></p></li>
+		<li><button id="logout">Log Out</button></li>
+	</div>
 </ul>
 <h1>14blox</h1>
 <a href="https://github.com/Marko2155/14blox">GitHub</a>
